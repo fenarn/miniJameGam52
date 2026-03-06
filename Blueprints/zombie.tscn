@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://i4wkfc1pu1si"]
+
+[ext_resource type="Script" uid="uid://b1du26558q5gu" path="res://Scripts/Zombie.cs" id="1_p1neq"]
+[ext_resource type="Texture2D" uid="uid://cimvb2dqantg4" path="res://Materials/Zombski.png" id="2_6evcj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0e48y"]
+
+[node name="Zombie" type="RigidBody2D" unique_id=1425535894 node_paths=PackedStringArray("player")]
+mass = 0.5
+gravity_scale = 0.0
+angular_damp = -1.0
+script = ExtResource("1_p1neq")
+player = NodePath("")
+torqueStrength = 2.0
+damping = 2.5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=26357535]
+shape = SubResource("CircleShape2D_0e48y")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1856474727]
+texture = ExtResource("2_6evcj")

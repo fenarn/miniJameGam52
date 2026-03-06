@@ -5,9 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://yyv3t177rrxf" path="res://Materials/NeoWat32.png" id="3_epypp"]
 [ext_resource type="Script" uid="uid://dcawsj87ejxbc" path="res://Scripts/BoostBar.cs" id="4_0hol4"]
 [ext_resource type="Script" uid="uid://bqm5rmcclcpi1" path="res://Scripts/UI_pos.cs" id="4_d21ai"]
-[ext_resource type="Script" uid="uid://b1du26558q5gu" path="res://Scripts/Zombie.cs" id="4_q6r6c"]
 [ext_resource type="Script" uid="uid://dl07kh1uqcya2" path="res://Scripts/DebugOut.cs" id="5_q6r6c"]
-[ext_resource type="Texture2D" uid="uid://cimvb2dqantg4" path="res://Materials/Zombski.png" id="7_rj586"]
+[ext_resource type="PackedScene" uid="uid://i4wkfc1pu1si" path="res://Blueprints/zombie.tscn" id="7_d21ai"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rj586"]
 normal = Vector2(1, 0)
@@ -26,8 +25,6 @@ distance = -457.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rj586"]
 size = Vector2(32, 64)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_0e48y"]
 
 [node name="Scene" type="Node2D" unique_id=258582573]
 
@@ -116,21 +113,12 @@ offset_right = -203.0
 offset_bottom = 299.0
 text = "Boiler Boost Pressure"
 
-[node name="Zombie" type="RigidBody2D" parent="." unique_id=2018258512 node_paths=PackedStringArray("player")]
-position = Vector2(257, 126)
-gravity_scale = 0.0
-angular_damp = -1.0
-script = ExtResource("4_q6r6c")
+[node name="Zombie" parent="." unique_id=1425535894 node_paths=PackedStringArray("player") instance=ExtResource("7_d21ai")]
+position = Vector2(258, 126)
 player = NodePath("../PlayerCharacter")
-torqueStrength = 2.0
-damping = 2.5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Zombie" unique_id=1150072272]
-shape = SubResource("CircleShape2D_0e48y")
-
-[node name="Sprite2D" type="Sprite2D" parent="Zombie" unique_id=889013582]
-texture = ExtResource("7_rj586")
+[node name="SpawnPoint" type="Node2D" parent="." unique_id=1087031398]
+position = Vector2(618, 249)
 
 [connection signal="BoostUI" from="PlayerCharacter" to="UI/ProgressBar" method="UpdateBoost"]
-[connection signal="Log" from="PlayerCharacter" to="UI/Debug1" method="OutputText"]
 [connection signal="UI" from="PlayerCharacter" to="UI" method="SetPos"]
