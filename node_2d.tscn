@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c1fn6u8rflv0w"]
+[gd_scene format=3 uid="uid://kf7kaqhi20bj"]
 
 [ext_resource type="Texture2D" uid="uid://bunb71utu8dft" path="res://Materials/7frj09nru4zu.png" id="1_wtcfe"]
 [ext_resource type="Script" uid="uid://cr5mab3n1ikov" path="res://Scripts/Player.cs" id="2_0e48y"]
@@ -22,10 +22,6 @@ can_sleep = false
 linear_damp = 1.0
 angular_damp = 1.0
 script = ExtResource("2_0e48y")
-accelImpulseSpeed = 3000.0
-decelImpulseSpeed = 5000.0
-rotateImpulseSpeed = 5000.0
-nitrousImpulseSpeed = 10000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacter" unique_id=1394125225]
 shape = SubResource("CircleShape2D_wtcfe")
@@ -34,10 +30,8 @@ shape = SubResource("CircleShape2D_wtcfe")
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayerCharacter" unique_id=583652448]
 texture = ExtResource("3_epypp")
-[node name="Camera2D" type="Camera2D" parent="PlayerCharacter" unique_id=457946031]
 
 [node name="Zombie" type="RigidBody2D" parent="." unique_id=2018258512]
-script = ExtResource("3_epypp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Zombie" unique_id=1150072272]
 shape = SubResource("CircleShape2D_0e48y")
