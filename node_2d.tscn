@@ -74,13 +74,10 @@ offset_right = -520.0
 offset_bottom = -280.0
 script = ExtResource("5_q6r6c")
 
-[node name="Zombie" type="RigidBody2D" parent="." unique_id=2018258512]
 [node name="Zombie" type="RigidBody2D" parent="." unique_id=2018258512 node_paths=PackedStringArray("player")]
-position = Vector2(363, 245)
 gravity_scale = 0.0
 script = ExtResource("4_q6r6c")
 player = NodePath("../PlayerCharacter")
-thrust = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Zombie" unique_id=1150072272]
 shape = SubResource("CircleShape2D_0e48y")
@@ -88,10 +85,6 @@ shape = SubResource("CircleShape2D_0e48y")
 [node name="Sprite2D" type="Sprite2D" parent="Zombie" unique_id=889013582]
 position = Vector2(129, 128)
 texture = ExtResource("7_rj586")
-
-[node name="Zombie2" type="RigidBody2D" parent="." unique_id=1728219194]
-visible = false
-script = ExtResource("4_q6r6c")
 
 [connection signal="BoostUI" from="PlayerCharacter" to="UI/ProgressBar" method="UpdateBoost"]
 [connection signal="UI" from="PlayerCharacter" to="UI" method="SetPos"]
