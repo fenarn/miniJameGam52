@@ -7,7 +7,7 @@ public partial class Player : RigidBody2D
 {
 
 	[Signal] public delegate void BoostUIEventHandler(float boostValue);
-	[Signal] public delegate void DebugEventHandler(string txt);
+	[Signal] public delegate void UIEventHandler(Vector2 pos);
 
 
 	[Export] public float accelImpulseSpeed = 1;
@@ -115,8 +115,7 @@ public partial class Player : RigidBody2D
 			//if(LinearVelocity.Length() > minimumDriftVelocity)
 				driftGuage += (driftMultiplier * (3.14f - driftAmount) * (LinearVelocity.Length() * 0.01f));
 		}
-		EmitSignal(SignalName.Debug, driftAmount + ", " + (3.14f - minimumDriftAngle) + ", " + LinearVelocity.Length());
-
+		GD.Print(driftAmount + ", " + (3.14f - minimumDriftAngle) + ", " + LinearVelocity.Length());
 
 		//Decide whether to apply the boost
 		if(nitrousBoost){
@@ -141,6 +140,6 @@ public partial class Player : RigidBody2D
 	{
 		EmitSignal(SignalName.BoostUI, driftGuage);
 
-		
+		EmitSignal(SignalName.UI, GlobalPosition);
 	}
 }

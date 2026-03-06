@@ -4,9 +4,11 @@ using System;
 public partial class Zombie : RigidBody2D
 {
 	[Export]
-	Node2D player;
+	RigidBody2D player;
 	[Export]
-	public float speed = 10f;
+	public float thrust = 10f;
+	[Export]
+	public float torqueStrength = 0.5f;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -17,8 +19,27 @@ public partial class Zombie : RigidBody2D
 	{
 		if (player != null)
 		{
-			Vector2 direction = (player.GlobalPosition - GlobalPosition).Normalized();
-			ApplyForce(direction * speed);
+			Vector2 target = (player.GlobalPosition - GlobalPosition);
+			Vector2 direction = target.Normalized();
+			Vector2 forward = -Transform.Y;
+
+			float angle = forward.AngleTo(direction);
+
+			Vector2 diff = forward - direction;
+
+			float angle2 = direction.Angle();
+
+			//GD.Print(target);
+			//GD.Print(direction);
+			GD.Print(angle2);
+			//GD.Print(angle);
+			
+
+			
+			/*ApplyTorqueImpulse(angle * torqueStrength);
+			ApplyImpulse(forward * thrust);*/
+
+			//ApplyForce(direction * thrust);
 		}
 	}
 }
