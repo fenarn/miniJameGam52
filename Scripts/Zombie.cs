@@ -8,7 +8,10 @@ public partial class Zombie : RigidBody2D
 	[Export]
 	public float thrust = 10f;
 	[Export]
-	public float torqueStrength = 0.5f;
+	public float torqueStrength = 1f;
+	[Export]
+	public float damping = 3f;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -25,20 +28,10 @@ public partial class Zombie : RigidBody2D
 
 			float angle = forward.AngleTo(direction);
 
-			Vector2 diff = forward - direction;
-
-			float angle2 = direction.Angle();
-
-			//GD.Print(target);
-			//GD.Print(direction);
-			GD.Print(angle2);
-			//GD.Print(angle);
+			//This little commented snippet below is gonne be left here as a testament to mine (Fenarn's) humongous stupidity.
+			//float angleRotated = Mathf.Wrap(angle + Mathf.Pi / 2f, -Mathf.Pi, Mathf.Pi);
 			
-
-			
-			/*ApplyTorqueImpulse(angle * torqueStrength);
-			ApplyImpulse(forward * thrust);*/
-
+			ApplyTorqueImpulse(angle*torqueStrength- AngularVelocity * damping);
 			ApplyForce(direction * thrust);
 		}
 	}
