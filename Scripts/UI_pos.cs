@@ -19,6 +19,6 @@ public partial class UI_pos : Control
 	public void SetPos(Vector2 pos)
 	{
 		Position = Position.MoveToward(pos, speed * Math.Abs((pos - Position).Length()));
-		GD.Print(pos);
+		//GD.Print(pos);
 	}
 }
