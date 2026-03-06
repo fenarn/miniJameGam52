@@ -13,8 +13,10 @@ public partial class Player : RigidBody2D
 
 	[Export] public float nitrousImpulseSpeed = 1;
 	[Export] public float nitrousTimeSec = 1;
+	[Export] public float nitrousCooldownSec = 5;
 	bool nitrousBoost = false;
 	float nitrousTimeLeft = 1;
+	float nitrousCooldownTimeLeft = 0;
 
 
 
@@ -27,11 +29,11 @@ public partial class Player : RigidBody2D
 	{
 		if (@event.IsActionPressed("nitrous"))
 		{
-			//Vector2 forwardDir = new Vector2(0, 1).Rotated(Rotation);
-			//ApplyImpulse(-forwardDir * nitrousImpulseSpeed, Vector2.Zero);
-
-			nitrousTimeLeft = nitrousTimeSec;
-			nitrousBoost = true;
+			//Check to see if the cooldown has ended
+			if(nitrousCooldownTimeLeft <= 0){
+				nitrousTimeLeft = nitrousTimeSec;
+				nitrousBoost = true;
+			}
 		}
 	}
 
@@ -63,10 +65,15 @@ public partial class Player : RigidBody2D
 			nitrousTimeLeft -= (float)delta;
 
 			if(nitrousTimeLeft < 0){
+				//Disable the nitro, and set the cooldown timer for when to next allow nitro
 				nitrousBoost = false;
+				nitrousCooldownTimeLeft = nitrousCooldownSec;
 			}
 
 			ApplyImpulse(-forwardDir * nitrousImpulseSpeed, Vector2.Zero);
+		}
+		if(nitrousCooldownTimeLeft > 0){
+			nitrousCooldownTimeLeft -= (float)delta;
 		}
 	}
 
