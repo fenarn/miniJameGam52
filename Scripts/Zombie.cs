@@ -39,7 +39,7 @@ public partial class Zombie : RigidBody2D
 			/*ApplyTorqueImpulse(angle * torqueStrength);
 			ApplyImpulse(forward * thrust);*/
 
-			//ApplyForce(direction * thrust);
+			ApplyForce(direction * thrust);
 		}
 	}
 }
