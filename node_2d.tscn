@@ -12,10 +12,10 @@
 [node name="Sprite2D" type="Sprite2D" parent="Background" unique_id=1153546041]
 texture = ExtResource("1_wtcfe")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1963407686]
+[node name="PlayerCharacter" type="RigidBody2D" parent="." unique_id=1644462876]
 script = ExtResource("2_0e48y")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1394125225]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacter" unique_id=1394125225]
 shape = SubResource("CircleShape2D_wtcfe")
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=457946031]
+[node name="Camera2D" type="Camera2D" parent="PlayerCharacter" unique_id=457946031]
