@@ -1,7 +1,12 @@
 [gd_scene format=3 uid="uid://c1fn6u8rflv0w"]
 
+[ext_resource type="Texture2D" uid="uid://bunb71utu8dft" path="res://Materials/7frj09nru4zu.png" id="1_wtcfe"]
+
 [node name="Scene" type="Node2D" unique_id=258582573]
 
 [node name="Background" type="Node2D" parent="." unique_id=1836037315]
 
 [node name="Sprite2D" type="Sprite2D" parent="Background" unique_id=1153546041]
+texture = ExtResource("1_wtcfe")
+
+[node name="Player" type="AnimatedSprite2D" parent="." unique_id=141392281]
