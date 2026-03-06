@@ -8,6 +8,8 @@ public partial class Player : RigidBody2D
 
 	[Signal] public delegate void BoostUIEventHandler(float boostValue);
 	[Signal] public delegate void UIEventHandler(Vector2 pos);
+	
+	[Signal] public delegate void LogEventHandler(string txt);
 
 
 	[Export] public float accelImpulseSpeed = 1;
@@ -28,7 +30,8 @@ public partial class Player : RigidBody2D
 	float nitrousCooldownTimeLeft = 0;
 
 	[Export] public bool boostDriftActive = false;
-	[Export] public float minimumDriftAngle = 5;
+	[Export] public float minimumDriftAngle = 0.3f;
+	[Export] public float maximumDriftAngle = 1f;
 	[Export] public float minimumDriftVelocity = 5;
 	[Export] public float driftMultiplier = 5;
 	float driftGuage = 0;
@@ -110,12 +113,13 @@ public partial class Player : RigidBody2D
 
 
 		//Check we are drifitng hard enough (big enough difference in angle)
-		if(driftAmount < 3.14 - minimumDriftAngle){ 
+		if((3.14 - driftAmount > minimumDriftAngle) && (3.14 - driftAmount < maximumDriftAngle) && (driftAmount > 0)){ 
 			//Checking we are going fast enough 
-			//if(LinearVelocity.Length() > minimumDriftVelocity)
+			if(LinearVelocity.Length() > minimumDriftVelocity)
 				driftGuage += (driftMultiplier * (3.14f - driftAmount) * (LinearVelocity.Length() * 0.01f));
 		}
-		//GD.Print(driftAmount + ", " + (3.14f - minimumDriftAngle) + ", " + LinearVelocity.Length());
+
+		EmitSignal(SignalName.Log, (3.14f - driftAmount) + ", \n" + (minimumDriftAngle) + ", \n" + LinearVelocity.Length());
 
 		//Decide whether to apply the boost
 		if(nitrousBoost){

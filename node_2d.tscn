@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://kf7kaqhi20bj"]
 
-[ext_resource type="Texture2D" uid="uid://bunb71utu8dft" path="res://Materials/7frj09nru4zu.png" id="1_wtcfe"]
+[ext_resource type="Texture2D" uid="uid://bqcma58wycrjq" path="res://Materials/IceRink.png" id="1_rj586"]
 [ext_resource type="Script" uid="uid://cr5mab3n1ikov" path="res://Scripts/Player.cs" id="2_0e48y"]
 [ext_resource type="Texture2D" uid="uid://yyv3t177rrxf" path="res://Materials/NeoWat32.png" id="3_epypp"]
 [ext_resource type="Script" uid="uid://dcawsj87ejxbc" path="res://Scripts/BoostBar.cs" id="4_0hol4"]
@@ -9,7 +9,23 @@
 [ext_resource type="Script" uid="uid://dl07kh1uqcya2" path="res://Scripts/DebugOut.cs" id="5_q6r6c"]
 [ext_resource type="Texture2D" uid="uid://cimvb2dqantg4" path="res://Materials/Zombski.png" id="7_rj586"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wtcfe"]
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rj586"]
+normal = Vector2(1, 0)
+distance = -964.9916
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4d7sh"]
+normal = Vector2(-1, 0)
+distance = -966.7469
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ir8iy"]
+normal = Vector2(0, 1)
+distance = -489.03683
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hqns4"]
+distance = -457.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rj586"]
+size = Vector2(32, 64)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0e48y"]
 
@@ -18,8 +34,25 @@
 [node name="Background" type="Node2D" parent="." unique_id=1836037315]
 
 [node name="Sprite2D" type="Sprite2D" parent="Background" unique_id=1153546041]
+texture_filter = 1
 position = Vector2(-1, -1)
-texture = ExtResource("1_wtcfe")
+scale = Vector2(2, 2)
+texture = ExtResource("1_rj586")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Background" unique_id=2020005081]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/StaticBody2D" unique_id=536677306]
+shape = SubResource("WorldBoundaryShape2D_rj586")
+debug_color = Color(0.9584257, 3.080368e-06, 0.5298511, 0.41960785)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Background/StaticBody2D" unique_id=625379784]
+shape = SubResource("WorldBoundaryShape2D_4d7sh")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Background/StaticBody2D" unique_id=591083070]
+shape = SubResource("WorldBoundaryShape2D_ir8iy")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Background/StaticBody2D" unique_id=452572006]
+shape = SubResource("WorldBoundaryShape2D_hqns4")
 
 [node name="PlayerCharacter" type="RigidBody2D" parent="." unique_id=1644462876]
 position = Vector2(-1, -4)
@@ -31,15 +64,15 @@ angular_damp = 1.0
 script = ExtResource("2_0e48y")
 accelImpulseSpeed = 3000.0
 decelImpulseSpeed = 5000.0
-rotateImpulseSpeed = 5000.0
-nitrousImpulseSpeed = 10000.0
+rotateImpulseSpeed = 15000.0
+nitrousImpulseSpeed = 8000.0
 boostDriftActive = true
-minimumDriftAngle = 0.5
-minimumDriftVelocity = 80.0
+minimumDriftVelocity = 50.0
 driftMultiplier = 0.002
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacter" unique_id=1394125225]
-shape = SubResource("CircleShape2D_wtcfe")
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_rj586")
 
 [node name="Camera2D" type="Camera2D" parent="PlayerCharacter" unique_id=457946031]
 
@@ -68,11 +101,20 @@ script = ExtResource("4_0hol4")
 
 [node name="Debug1" type="Label" parent="UI" unique_id=1041243291]
 layout_mode = 0
-offset_left = -560.0
-offset_top = -303.0
-offset_right = -520.0
-offset_bottom = -280.0
+offset_left = -515.0
+offset_top = -268.0
+offset_right = -475.0
+offset_bottom = -245.0
+text = "LOGGER"
 script = ExtResource("5_q6r6c")
+
+[node name="Label" type="Label" parent="UI" unique_id=721543113]
+layout_mode = 0
+offset_left = -387.0
+offset_top = 276.0
+offset_right = -203.0
+offset_bottom = 299.0
+text = "Boiler Boost Pressure"
 
 [node name="Zombie" type="RigidBody2D" parent="." unique_id=2018258512 node_paths=PackedStringArray("player")]
 position = Vector2(257, 126)
@@ -90,4 +132,5 @@ shape = SubResource("CircleShape2D_0e48y")
 texture = ExtResource("7_rj586")
 
 [connection signal="BoostUI" from="PlayerCharacter" to="UI/ProgressBar" method="UpdateBoost"]
+[connection signal="Log" from="PlayerCharacter" to="UI/Debug1" method="OutputText"]
 [connection signal="UI" from="PlayerCharacter" to="UI" method="SetPos"]
