@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://c1fn6u8rflv0w"]
+[gd_scene format=3 uid="uid://kf7kaqhi20bj"]
 
 [ext_resource type="Texture2D" uid="uid://bunb71utu8dft" path="res://Materials/7frj09nru4zu.png" id="1_wtcfe"]
-[ext_resource type="Script" uid="uid://cr5mab3n1ikov" path="res://Scripts/Player.cs" id="2_0e48y"]
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="2_0e48y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wtcfe"]
 
@@ -12,12 +12,10 @@
 [node name="Sprite2D" type="Sprite2D" parent="Background" unique_id=1153546041]
 texture = ExtResource("1_wtcfe")
 
-[node name="Player" type="AnimatedSprite2D" parent="." unique_id=141392281]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1963407686]
 script = ExtResource("2_0e48y")
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=457946031]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="Player" unique_id=1963407686]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/CharacterBody2D" unique_id=1394125225]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1394125225]
 shape = SubResource("CircleShape2D_wtcfe")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=457946031]
