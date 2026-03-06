@@ -7,8 +7,8 @@ public partial class Player : RigidBody2D
 {
 
 	[Signal] public delegate void BoostUIEventHandler(float boostValue);
+	[Signal] public delegate void WhistleUIEventHandler(float whistleValue);
 	[Signal] public delegate void UIEventHandler(Vector2 pos);
-	
 	[Signal] public delegate void LogEventHandler(string txt);
 
 
@@ -37,6 +37,11 @@ public partial class Player : RigidBody2D
 	float driftGuage = 0;
 
 
+
+	[Export] public float whistleCoolDown = 5;
+	float whistleCoolLeft = 0;
+
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -61,6 +66,16 @@ public partial class Player : RigidBody2D
 
 			nitrousTimeLeft = nitrousTimeSec;
 			nitrousBoost = true;
+		}
+
+		if (@event.IsActionPressed("whistle"))
+		{
+			//Check to see if the timer cooldown has ended
+			if(whistleCoolLeft > 0){
+				return;
+			}
+			
+			whistleCoolLeft = whistleCoolDown;
 		}
 	}
 
@@ -91,6 +106,12 @@ public partial class Player : RigidBody2D
 
 		//Boost Controls
 		BoostController(delta, forwardDir);
+
+
+		if(whistleCoolLeft >= 0)
+		{
+			whistleCoolLeft -= (float)delta;
+		}
 	}
 
 
@@ -119,7 +140,7 @@ public partial class Player : RigidBody2D
 				driftGuage += (driftMultiplier * (3.14f - driftAmount) * (LinearVelocity.Length() * 0.01f));
 		}
 
-		EmitSignal(SignalName.Log, (3.14f - driftAmount) + ", \n" + (minimumDriftAngle) + ", \n" + LinearVelocity.Length());
+		EmitSignal(SignalName.Log, (3.14f - driftAmount) + ", \n" + (minimumDriftAngle) + ", \n" + LinearVelocity.Length()+ ", \n" + whistleCoolLeft);
 
 		//Decide whether to apply the boost
 		if(nitrousBoost){
@@ -143,6 +164,7 @@ public partial class Player : RigidBody2D
 	public override void _Process(double delta)
 	{
 		EmitSignal(SignalName.BoostUI, driftGuage);
+		EmitSignal(SignalName.WhistleUI, whistleCoolLeft);
 
 		EmitSignal(SignalName.UI, GlobalPosition);
 	}

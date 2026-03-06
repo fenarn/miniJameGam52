@@ -9,6 +9,9 @@
 [ext_resource type="Script" uid="uid://dl07kh1uqcya2" path="res://Scripts/DebugOut.cs" id="5_q6r6c"]
 [ext_resource type="PackedScene" uid="uid://i4wkfc1pu1si" path="res://Blueprints/zombie.tscn" id="7_d21ai"]
 [ext_resource type="Theme" uid="uid://gflk662ddj5g" path="res://WhistleTheme.tres" id="7_ir8iy"]
+[ext_resource type="Script" uid="uid://cw7vxd2mqmmd8" path="res://Scripts/WhistleBar.cs" id="8_x0ka3"]
+[ext_resource type="Theme" uid="uid://penjk8d570qj" path="res://Keys.tres" id="9_hqns4"]
+[ext_resource type="Script" uid="uid://dhusetss8b6os" path="res://Scripts/ButtonPressed.cs" id="9_ir8iy"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rj586"]
 normal = Vector2(1, 0)
@@ -82,36 +85,38 @@ texture = ExtResource("3_epypp")
 
 [node name="UI" type="Control" parent="." unique_id=1757938355]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("4_d21ai")
 speed = 0.1
 
-[node name="ProgressBar" type="ProgressBar" parent="UI" unique_id=1480930615]
+[node name="BoostBar" type="ProgressBar" parent="UI" unique_id=1480930615]
 layout_mode = 0
 offset_left = -549.0
-offset_top = 245.0
+offset_top = 278.0
 offset_right = -219.0
-offset_bottom = 297.0
+offset_bottom = 330.0
 theme = ExtResource("5_4d7sh")
 theme_type_variation = &"BoilerBoost"
 max_value = 1.0
 show_percentage = false
 script = ExtResource("4_0hol4")
 
-[node name="ProgressBar2" type="ProgressBar" parent="UI" unique_id=2070078771]
+[node name="WhistleBar" type="ProgressBar" parent="UI" unique_id=2070078771]
 layout_mode = 0
 offset_left = 216.0
-offset_top = 245.0
+offset_top = 278.0
 offset_right = 546.0
-offset_bottom = 297.0
+offset_bottom = 330.0
 theme = ExtResource("7_ir8iy")
-theme_type_variation = &"BoilerBoost"
-max_value = 1.0
-fill_mode = 1
+max_value = 5.0
 show_percentage = false
-script = ExtResource("4_0hol4")
+script = ExtResource("8_x0ka3")
 
 [node name="Debug1" type="Label" parent="UI" unique_id=1041243291]
 layout_mode = 0
@@ -125,36 +130,92 @@ script = ExtResource("5_q6r6c")
 [node name="Label" type="Label" parent="UI" unique_id=721543113]
 layout_mode = 0
 offset_left = -387.0
-offset_top = 276.0
+offset_top = 309.0
 offset_right = -203.0
-offset_bottom = 299.0
+offset_bottom = 332.0
 text = "Boiler Boost Pressure"
 
 [node name="Label3" type="Label" parent="UI" unique_id=1299158507]
 layout_mode = 0
 offset_left = 218.0
-offset_top = 276.0
+offset_top = 309.0
 offset_right = 402.0
-offset_bottom = 299.0
-text = "Whistle Pressure"
+offset_bottom = 332.0
+text = "Freeze Whistle Pressure"
 
 [node name="Label2" type="Label" parent="UI" unique_id=802390601]
 layout_mode = 0
 offset_left = -547.0
-offset_top = 284.0
+offset_top = 317.0
 offset_right = -363.0
-offset_bottom = 307.0
+offset_bottom = 340.0
 scale = Vector2(0.5, 0.5)
 text = "[L Shift]"
 
 [node name="Label4" type="Label" parent="UI" unique_id=2102185432]
 layout_mode = 0
 offset_left = 516.0
-offset_top = 284.0
+offset_top = 317.0
 offset_right = 700.0
-offset_bottom = 307.0
+offset_bottom = 340.0
 scale = Vector2(0.5, 0.5)
 text = "[Space]"
+
+[node name="Up" type="Button" parent="UI" unique_id=367294418]
+layout_mode = 0
+offset_left = -18.0
+offset_top = 253.0
+offset_right = 19.0
+offset_bottom = 290.0
+mouse_filter = 2
+theme = ExtResource("9_hqns4")
+toggle_mode = true
+action_mode = 0
+text = "↑"
+script = ExtResource("9_ir8iy")
+up = true
+
+[node name="Down" type="Button" parent="UI" unique_id=222522951]
+layout_mode = 0
+offset_left = -18.0
+offset_top = 293.0
+offset_right = 19.0
+offset_bottom = 330.0
+mouse_filter = 2
+theme = ExtResource("9_hqns4")
+toggle_mode = true
+action_mode = 0
+text = "↓"
+script = ExtResource("9_ir8iy")
+down = true
+
+[node name="Left" type="Button" parent="UI" unique_id=366754864]
+layout_mode = 0
+offset_left = -58.0
+offset_top = 293.0
+offset_right = -21.0
+offset_bottom = 330.0
+mouse_filter = 2
+theme = ExtResource("9_hqns4")
+toggle_mode = true
+action_mode = 0
+text = "←"
+script = ExtResource("9_ir8iy")
+left = true
+
+[node name="Leftlessness" type="Button" parent="UI" unique_id=587338114]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 293.0
+offset_right = 59.0
+offset_bottom = 330.0
+mouse_filter = 2
+theme = ExtResource("9_hqns4")
+toggle_mode = true
+action_mode = 0
+text = "→"
+script = ExtResource("9_ir8iy")
+right = true
 
 [node name="Zombie" parent="." unique_id=1425535894 node_paths=PackedStringArray("player") instance=ExtResource("7_d21ai")]
 position = Vector2(258, 126)
@@ -164,6 +225,7 @@ damping = 3.0
 [node name="SpawnPoint" type="Node2D" parent="." unique_id=1087031398]
 position = Vector2(618, 249)
 
-[connection signal="BoostUI" from="PlayerCharacter" to="UI/ProgressBar" method="UpdateBoost"]
+[connection signal="BoostUI" from="PlayerCharacter" to="UI/BoostBar" method="UpdateBoost"]
 [connection signal="Log" from="PlayerCharacter" to="UI/Debug1" method="OutputText"]
 [connection signal="UI" from="PlayerCharacter" to="UI" method="SetPos"]
+[connection signal="WhistleUI" from="PlayerCharacter" to="UI/WhistleBar" method="UpdateWhistle"]
