@@ -2,6 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bunb71utu8dft" path="res://Materials/7frj09nru4zu.png" id="1_wtcfe"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_wtcfe"]
+
 [node name="Scene" type="Node2D" unique_id=258582573]
 
 [node name="Background" type="Node2D" parent="." unique_id=1836037315]
@@ -10,3 +12,10 @@
 texture = ExtResource("1_wtcfe")
 
 [node name="Player" type="AnimatedSprite2D" parent="." unique_id=141392281]
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=457946031]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Player" unique_id=1963407686]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/CharacterBody2D" unique_id=1394125225]
+shape = SubResource("CircleShape2D_wtcfe")
