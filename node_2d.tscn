@@ -5,7 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://yyv3t177rrxf" path="res://Materials/NeoWat32.png" id="3_epypp"]
 [ext_resource type="Script" uid="uid://dcawsj87ejxbc" path="res://Scripts/BoostBar.cs" id="4_0hol4"]
 [ext_resource type="Script" uid="uid://bqm5rmcclcpi1" path="res://Scripts/UI_pos.cs" id="4_d21ai"]
+[ext_resource type="Theme" uid="uid://bkv6vr1u44luv" path="res://BoostTheme.tres" id="5_4d7sh"]
 [ext_resource type="Script" uid="uid://dl07kh1uqcya2" path="res://Scripts/DebugOut.cs" id="5_q6r6c"]
+[ext_resource type="Theme" uid="uid://gflk662ddj5g" path="res://WhistleTheme.tres" id="7_ir8iy"]
+[ext_resource type="Texture2D" uid="uid://cimvb2dqantg4" path="res://Materials/Zombski.png" id="7_rj586"]
 [ext_resource type="PackedScene" uid="uid://i4wkfc1pu1si" path="res://Blueprints/zombie.tscn" id="7_d21ai"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rj586"]
@@ -92,7 +95,22 @@ offset_left = -549.0
 offset_top = 245.0
 offset_right = -219.0
 offset_bottom = 297.0
+theme = ExtResource("5_4d7sh")
+theme_type_variation = &"BoilerBoost"
 max_value = 1.0
+show_percentage = false
+script = ExtResource("4_0hol4")
+
+[node name="ProgressBar2" type="ProgressBar" parent="UI" unique_id=2070078771]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 245.0
+offset_right = 546.0
+offset_bottom = 297.0
+theme = ExtResource("7_ir8iy")
+theme_type_variation = &"BoilerBoost"
+max_value = 1.0
+fill_mode = 1
 show_percentage = false
 script = ExtResource("4_0hol4")
 
@@ -115,6 +133,36 @@ text = "Boiler Boost Pressure"
 
 [node name="Zombie" parent="." unique_id=1425535894 node_paths=PackedStringArray("player") instance=ExtResource("7_d21ai")]
 position = Vector2(258, 126)
+[node name="Label3" type="Label" parent="UI" unique_id=1299158507]
+layout_mode = 0
+offset_left = 218.0
+offset_top = 276.0
+offset_right = 402.0
+offset_bottom = 299.0
+text = "Whistle Pressure"
+
+[node name="Label2" type="Label" parent="UI" unique_id=802390601]
+layout_mode = 0
+offset_left = -547.0
+offset_top = 284.0
+offset_right = -363.0
+offset_bottom = 307.0
+scale = Vector2(0.5, 0.5)
+text = "[L Shift]"
+
+[node name="Label4" type="Label" parent="UI" unique_id=2102185432]
+layout_mode = 0
+offset_left = 516.0
+offset_top = 284.0
+offset_right = 700.0
+offset_bottom = 307.0
+scale = Vector2(0.5, 0.5)
+text = "[Space]"
+
+[node name="Zombie" type="RigidBody2D" parent="." unique_id=2018258512 node_paths=PackedStringArray("player")]
+position = Vector2(257, 126)
+gravity_scale = 0.0
+script = ExtResource("4_q6r6c")
 player = NodePath("../PlayerCharacter")
 
 [node name="SpawnPoint" type="Node2D" parent="." unique_id=1087031398]
