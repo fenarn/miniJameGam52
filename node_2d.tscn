@@ -18,9 +18,11 @@
 [node name="Background" type="Node2D" parent="." unique_id=1836037315]
 
 [node name="Sprite2D" type="Sprite2D" parent="Background" unique_id=1153546041]
+position = Vector2(-1, -1)
 texture = ExtResource("1_wtcfe")
 
 [node name="PlayerCharacter" type="RigidBody2D" parent="." unique_id=1644462876]
+position = Vector2(-1, -4)
 mass = 1000.0
 gravity_scale = 0.0
 can_sleep = false
@@ -81,6 +83,12 @@ offset_bottom = 299.0
 text = "Boiler Boost pressure"
 
 [node name="Zombie" type="RigidBody2D" parent="." unique_id=2018258512]
+[node name="Zombie" type="RigidBody2D" parent="." unique_id=2018258512 node_paths=PackedStringArray("player")]
+position = Vector2(363, 245)
+gravity_scale = 0.0
+script = ExtResource("4_q6r6c")
+player = NodePath("../PlayerCharacter")
+thrust = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Zombie" unique_id=1150072272]
 shape = SubResource("CircleShape2D_0e48y")
