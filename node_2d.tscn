@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://bqm5rmcclcpi1" path="res://Scripts/UI_pos.cs" id="4_d21ai"]
 [ext_resource type="Theme" uid="uid://bkv6vr1u44luv" path="res://BoostTheme.tres" id="5_4d7sh"]
 [ext_resource type="Script" uid="uid://dl07kh1uqcya2" path="res://Scripts/DebugOut.cs" id="5_q6r6c"]
+[ext_resource type="Theme" uid="uid://gflk662ddj5g" path="res://WhistleTheme.tres" id="7_ir8iy"]
+[ext_resource type="Texture2D" uid="uid://cimvb2dqantg4" path="res://Materials/Zombski.png" id="7_rj586"]
 [ext_resource type="PackedScene" uid="uid://i4wkfc1pu1si" path="res://Blueprints/zombie.tscn" id="7_d21ai"]
 [ext_resource type="Theme" uid="uid://gflk662ddj5g" path="res://WhistleTheme.tres" id="7_ir8iy"]
 
@@ -158,6 +160,36 @@ text = "[Space]"
 
 [node name="Zombie" parent="." unique_id=1425535894 node_paths=PackedStringArray("player") instance=ExtResource("7_d21ai")]
 position = Vector2(258, 126)
+[node name="Label3" type="Label" parent="UI" unique_id=1299158507]
+layout_mode = 0
+offset_left = 218.0
+offset_top = 276.0
+offset_right = 402.0
+offset_bottom = 299.0
+text = "Whistle Pressure"
+
+[node name="Label2" type="Label" parent="UI" unique_id=802390601]
+layout_mode = 0
+offset_left = -547.0
+offset_top = 284.0
+offset_right = -363.0
+offset_bottom = 307.0
+scale = Vector2(0.5, 0.5)
+text = "[L Shift]"
+
+[node name="Label4" type="Label" parent="UI" unique_id=2102185432]
+layout_mode = 0
+offset_left = 516.0
+offset_top = 284.0
+offset_right = 700.0
+offset_bottom = 307.0
+scale = Vector2(0.5, 0.5)
+text = "[Space]"
+
+[node name="Zombie" type="RigidBody2D" parent="." unique_id=2018258512 node_paths=PackedStringArray("player")]
+position = Vector2(257, 126)
+gravity_scale = 0.0
+script = ExtResource("4_q6r6c")
 player = NodePath("../PlayerCharacter")
 damping = 3.0
 
