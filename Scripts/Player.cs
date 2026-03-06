@@ -6,6 +6,10 @@ using System;
 public partial class Player : RigidBody2D
 {
 
+	[Signal] public delegate void BoostUIEventHandler(float boostValue);
+	[Signal] public delegate void DebugEventHandler(string txt);
+
+
 	[Export] public float accelImpulseSpeed = 1;
 	[Export] public float decelImpulseSpeed = 1;
 	[Export] public float rotateImpulseSpeed = 1;
@@ -24,7 +28,8 @@ public partial class Player : RigidBody2D
 	float nitrousCooldownTimeLeft = 0;
 
 	[Export] public bool boostDriftActive = false;
-	[Export] public float minimumDriftActive = 5;
+	[Export] public float minimumDriftAngle = 5;
+	[Export] public float minimumDriftVelocity = 5;
 	[Export] public float driftMultiplier = 5;
 	float driftGuage = 0;
 
@@ -86,6 +91,8 @@ public partial class Player : RigidBody2D
 	}
 
 
+	float Normalize(float angle) =>
+	angle - 2* (float)Math.PI * (float)Math.Floor(angle / (2 * (float)Math.PI));
 
 	void BoostController(double delta, Vector2 forwardDir){
 
@@ -94,12 +101,21 @@ public partial class Player : RigidBody2D
 			nitrousCooldownTimeLeft -= (float)delta;
 		}
 
-		//Calculate boost addition from drifting
-		float driftAmount = Math.Abs(Rotation - LinearVelocity.Angle());
-		if(driftAmount > minimumDriftActive){
-			driftGuage += driftAmount * driftMultiplier;
+		//Find out how similar our faced direction is to our moving direction
+		float driftAmount = Normalize(forwardDir.Angle()) - Normalize(LinearVelocity.Angle());
+		if (driftAmount > (float)Math.PI) driftAmount -= 2*(float)Math.PI;
+		else if (driftAmount < -(float)Math.PI) driftAmount += 2*(float)Math.PI;
+
+		driftAmount = Math.Abs(driftAmount);
+
+
+		//Check we are drifitng hard enough (big enough difference in angle)
+		if(driftAmount < 3.14 - minimumDriftAngle){ 
+			//Checking we are going fast enough 
+			//if(LinearVelocity.Length() > minimumDriftVelocity)
+				driftGuage += (driftMultiplier * (3.14f - driftAmount) * (LinearVelocity.Length() * 0.01f));
 		}
-		
+		EmitSignal(SignalName.Debug, driftAmount + ", " + (3.14f - minimumDriftAngle) + ", " + LinearVelocity.Length());
 
 
 		//Decide whether to apply the boost
@@ -123,6 +139,8 @@ public partial class Player : RigidBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		EmitSignal(SignalName.BoostUI, driftGuage);
 
+		
 	}
 }
