@@ -115,7 +115,7 @@ public partial class Player : RigidBody2D
 			//if(LinearVelocity.Length() > minimumDriftVelocity)
 				driftGuage += (driftMultiplier * (3.14f - driftAmount) * (LinearVelocity.Length() * 0.01f));
 		}
-		GD.Print(driftAmount + ", " + (3.14f - minimumDriftAngle) + ", " + LinearVelocity.Length());
+		//GD.Print(driftAmount + ", " + (3.14f - minimumDriftAngle) + ", " + LinearVelocity.Length());
 
 		//Decide whether to apply the boost
 		if(nitrousBoost){
