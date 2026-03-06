@@ -2,8 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://bunb71utu8dft" path="res://Materials/7frj09nru4zu.png" id="1_wtcfe"]
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="2_0e48y"]
+[ext_resource type="Script" uid="uid://b1du26558q5gu" path="res://Scripts/Zombie.cs" id="3_epypp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wtcfe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0e48y"]
 
 [node name="Scene" type="Node2D" unique_id=258582573]
 
@@ -19,3 +22,9 @@ script = ExtResource("2_0e48y")
 shape = SubResource("CircleShape2D_wtcfe")
 
 [node name="Camera2D" type="Camera2D" parent="PlayerCharacter" unique_id=457946031]
+
+[node name="Zombie" type="RigidBody2D" parent="." unique_id=2018258512]
+script = ExtResource("3_epypp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zombie" unique_id=1150072272]
+shape = SubResource("CircleShape2D_0e48y")
