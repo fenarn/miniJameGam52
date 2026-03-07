@@ -2,16 +2,17 @@
 
 [ext_resource type="Texture2D" uid="uid://bqcma58wycrjq" path="res://Materials/IceRink.png" id="1_rj586"]
 [ext_resource type="Script" uid="uid://cr5mab3n1ikov" path="res://Scripts/Player.cs" id="2_0e48y"]
-[ext_resource type="Texture2D" uid="uid://yyv3t177rrxf" path="res://Materials/NeoWat32.png" id="3_epypp"]
 [ext_resource type="Texture2D" uid="uid://bv66vnji2y3is" path="res://Materials/ZombskiDead.png" id="3_nr8wp"]
 [ext_resource type="Texture2D" uid="uid://cnt68ec2brn8c" path="res://Materials/AreaCircle.png" id="4_0h7mo"]
 [ext_resource type="Script" uid="uid://dcawsj87ejxbc" path="res://Scripts/BoostBar.cs" id="4_0hol4"]
+[ext_resource type="Texture2D" uid="uid://hpwfq4nnadkt" path="res://Materials/Train.png" id="4_d2bti"]
 [ext_resource type="Script" uid="uid://bqm5rmcclcpi1" path="res://Scripts/UI_pos.cs" id="4_d21ai"]
 [ext_resource type="Theme" uid="uid://bkv6vr1u44luv" path="res://BoostTheme.tres" id="5_4d7sh"]
 [ext_resource type="Script" uid="uid://dl07kh1uqcya2" path="res://Scripts/DebugOut.cs" id="5_q6r6c"]
 [ext_resource type="Texture2D" uid="uid://bkofnia6is8hb" path="res://Materials/Steam.png" id="6_d2bti"]
 [ext_resource type="PackedScene" uid="uid://i4wkfc1pu1si" path="res://Blueprints/zombie.tscn" id="7_d21ai"]
 [ext_resource type="Theme" uid="uid://gflk662ddj5g" path="res://WhistleTheme.tres" id="7_ir8iy"]
+[ext_resource type="Texture2D" uid="uid://bofb5l3clm3qg" path="res://Materials/Flame.png" id="7_ta5nu"]
 [ext_resource type="Script" uid="uid://cw7vxd2mqmmd8" path="res://Scripts/WhistleBar.cs" id="8_x0ka3"]
 [ext_resource type="Theme" uid="uid://penjk8d570qj" path="res://Keys.tres" id="9_hqns4"]
 [ext_resource type="Script" uid="uid://dhusetss8b6os" path="res://Scripts/ButtonPressed.cs" id="9_ir8iy"]
@@ -39,10 +40,23 @@ size = Vector2(32, 64)
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ta5nu"]
 particle_flag_disable_z = true
 emission_shape_scale = Vector3(0.5, 0.5, 0.5)
-angle_min = -720.0
-angle_max = 720.0
-direction = Vector3(0, 0, 0)
-initial_velocity_max = 24.14
+angle_min = 1.0728835e-05
+angle_max = 1.0728835e-05
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 17.24
+initial_velocity_max = 37.94
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_flf07"]
+particle_flag_disable_z = true
+angle_min = -54.59999
+angle_max = 59.60001
+direction = Vector3(0, 1, 0)
+spread = 10.511
+initial_velocity_min = 120.689995
+initial_velocity_max = 206.94
 gravity = Vector3(0, 0, 0)
 scale_min = 0.5
 
@@ -71,7 +85,7 @@ shape = SubResource("WorldBoundaryShape2D_ir8iy")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Background/StaticBody2D" unique_id=452572006]
 shape = SubResource("WorldBoundaryShape2D_hqns4")
 
-[node name="PlayerCharacter" type="RigidBody2D" parent="." unique_id=1644462876 node_paths=PackedStringArray("whistleColArea")]
+[node name="PlayerCharacter" type="RigidBody2D" parent="." unique_id=1644462876 node_paths=PackedStringArray("flames", "whistleColArea")]
 position = Vector2(-1, -4)
 mass = 1000.0
 gravity_scale = 0.0
@@ -86,6 +100,7 @@ nitrousImpulseSpeed = 8000.0
 boostDriftActive = true
 minimumDriftVelocity = 50.0
 driftMultiplier = 0.002
+flames = NodePath("GPUParticles2DFlames")
 whistleColArea = NodePath("Area2D")
 whistleRadiusMod = 0.2
 zombieDead = ExtResource("3_nr8wp")
@@ -97,9 +112,9 @@ shape = SubResource("RectangleShape2D_rj586")
 [node name="Camera2D" type="Camera2D" parent="PlayerCharacter" unique_id=457946031]
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayerCharacter" unique_id=583652448]
+texture_filter = 1
 position = Vector2(0, 11)
-scale = Vector2(1, 2)
-texture = ExtResource("3_epypp")
+texture = ExtResource("4_d2bti")
 
 [node name="Area2D" type="Area2D" parent="PlayerCharacter" unique_id=1549746938]
 
@@ -113,9 +128,19 @@ scale = Vector2(1.56, 1.56)
 texture = ExtResource("4_0h7mo")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="PlayerCharacter" unique_id=42508582]
+texture_filter = 1
+position = Vector2(0, -13)
 amount = 3
 texture = ExtResource("6_d2bti")
 process_material = SubResource("ParticleProcessMaterial_ta5nu")
+
+[node name="GPUParticles2DFlames" type="GPUParticles2D" parent="PlayerCharacter" unique_id=1365085800]
+texture_filter = 1
+position = Vector2(0, 42)
+emitting = false
+amount = 10
+texture = ExtResource("7_ta5nu")
+process_material = SubResource("ParticleProcessMaterial_flf07")
 
 [node name="UI" type="Control" parent="." unique_id=1757938355]
 layout_mode = 3

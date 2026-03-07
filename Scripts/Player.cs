@@ -35,6 +35,7 @@ public partial class Player : RigidBody2D
 	[Export] public float minimumDriftVelocity = 5;
 	[Export] public float driftMultiplier = 5;
 	float driftGuage = 0;
+	[Export] public GpuParticles2D flames;
 
 
 
@@ -65,6 +66,7 @@ public partial class Player : RigidBody2D
 					return;	
 				}else{
 					driftGuage = 0;
+					flames.Emitting = true;
 				}
 			}
 
@@ -165,6 +167,7 @@ public partial class Player : RigidBody2D
 				//If boost cooldown active, Disable the nitro, and set the cooldown timer for when to next allow nitro
 				nitrousBoost = false;
 				nitrousCooldownTimeLeft = nitrousCooldownSec;
+				flames.Emitting = false;
 			}
 
 			nitrousTimeLeft -= (float)delta;
