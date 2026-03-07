@@ -4,13 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://cimvb2dqantg4" path="res://Materials/Zombski.png" id="2_6evcj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0e48y"]
+radius = 16.17
 
-[node name="Zombie" type="RigidBody2D" unique_id=1425535894 node_paths=PackedStringArray("player")]
+[node name="Zombie" type="RigidBody2D" unique_id=1425535894]
 mass = 0.5
 gravity_scale = 0.0
 angular_damp = -1.0
 script = ExtResource("1_p1neq")
-player = NodePath("")
 torqueStrength = 2.0
 damping = 2.5
 

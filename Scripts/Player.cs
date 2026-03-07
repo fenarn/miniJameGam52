@@ -125,7 +125,7 @@ public partial class Player : RigidBody2D
 
 		if(whistleCoolLeft <= whistleCoolDown)
 		{
-			whistleCoolLeft += ((float)delta + (whistleCoolDown - whistleCoolLeft) * 0.04f) * 0.5f;
+			whistleCoolLeft += ((float)delta + (whistleCoolDown - whistleCoolLeft) * 0.04f) * 0.3f;
 		}
 
 	}
