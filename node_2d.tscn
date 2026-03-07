@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bqm5rmcclcpi1" path="res://Scripts/UI_pos.cs" id="4_d21ai"]
 [ext_resource type="Theme" uid="uid://bkv6vr1u44luv" path="res://BoostTheme.tres" id="5_4d7sh"]
 [ext_resource type="Script" uid="uid://dl07kh1uqcya2" path="res://Scripts/DebugOut.cs" id="5_q6r6c"]
+[ext_resource type="Texture2D" uid="uid://bkofnia6is8hb" path="res://Materials/Steam.png" id="6_d2bti"]
 [ext_resource type="PackedScene" uid="uid://i4wkfc1pu1si" path="res://Blueprints/zombie.tscn" id="7_d21ai"]
 [ext_resource type="Theme" uid="uid://gflk662ddj5g" path="res://WhistleTheme.tres" id="7_ir8iy"]
 [ext_resource type="Script" uid="uid://cw7vxd2mqmmd8" path="res://Scripts/WhistleBar.cs" id="8_x0ka3"]
@@ -34,6 +35,16 @@ distance = -457.0
 size = Vector2(32, 64)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0h7mo"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ta5nu"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(0.5, 0.5, 0.5)
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, 0)
+initial_velocity_max = 24.14
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
 
 [node name="Scene" type="Node2D" unique_id=258582573]
 
@@ -100,6 +111,11 @@ shape = SubResource("CircleShape2D_0h7mo")
 position = Vector2(7.6293945e-06, 7.6293945e-06)
 scale = Vector2(1.56, 1.56)
 texture = ExtResource("4_0h7mo")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="PlayerCharacter" unique_id=42508582]
+amount = 3
+texture = ExtResource("6_d2bti")
+process_material = SubResource("ParticleProcessMaterial_ta5nu")
 
 [node name="UI" type="Control" parent="." unique_id=1757938355]
 layout_mode = 3
