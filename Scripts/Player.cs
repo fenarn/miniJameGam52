@@ -42,6 +42,8 @@ public partial class Player : RigidBody2D
 	[Export] public Area2D whistleColArea;
 	[Export] public float whistleRadiusMod = 50f;
 	float whistleCoolLeft = 0;
+	[Export] public Texture2D zombieDead;
+	bool monitoringDisableDelay = false;
 
 
 	// Called when the node enters the scene tree for the first time.
@@ -77,6 +79,16 @@ public partial class Player : RigidBody2D
 			//	return;
 			//}
 			whistleCoolLeft = 0;
+
+			foreach (var obj in GetNode<Area2D>("Area2D").GetOverlappingBodies())
+			{
+				if(obj is Zombie zombie)
+				{
+					zombie.frozen = true;
+					zombie.GetNode<Sprite2D>("Sprite2D").Texture = zombieDead;
+				}
+			}
+			
 		}
 	}
 
@@ -113,8 +125,9 @@ public partial class Player : RigidBody2D
 
 		if(whistleCoolLeft <= whistleCoolDown)
 		{
-			whistleCoolLeft += (float)delta;
+			whistleCoolLeft += ((float)delta + (whistleCoolDown - whistleCoolLeft) * 0.04f) * 0.5f;
 		}
+
 	}
 
 
@@ -160,6 +173,8 @@ public partial class Player : RigidBody2D
 
 		
 	}
+
+
 
 
 

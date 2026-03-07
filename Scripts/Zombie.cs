@@ -12,6 +12,13 @@ public partial class Zombie : RigidBody2D
 	[Export]
 	public float damping = 3f;
 
+
+
+	[Export] public bool frozen = false;
+	[Export] public float frozenKillTimer = 3f;
+
+
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -20,7 +27,7 @@ public partial class Zombie : RigidBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
-		if (player != null)
+		if ((player != null) && (frozen == false))
 		{
 			Vector2 target = (player.GlobalPosition - GlobalPosition);
 			Vector2 direction = target.Normalized();
@@ -33,6 +40,16 @@ public partial class Zombie : RigidBody2D
 			
 			ApplyTorqueImpulse(angle*torqueStrength- AngularVelocity * damping);
 			ApplyForce(direction * thrust);
+		}
+		else if(frozen)
+		{
+			//If the zombie is frozen start killing them
+			frozenKillTimer -= (float)delta;
+
+			if(frozenKillTimer <= 0)
+			{
+				QueueFree();
+			}
 		}
 	}
 }
