@@ -118,7 +118,7 @@ public partial class Player : RigidBody2D
 
 
 		//Adjust the whistle area collider
-		//whistleColArea.Scale = new Vector2(whistleCoolLeft * whistleRadiusMod, whistleCoolLeft * whistleRadiusMod);
+		whistleColArea.Scale = new Vector2(whistleCoolLeft * whistleRadiusMod, whistleCoolLeft * whistleRadiusMod);
 		
 
 		//Boost Controls
