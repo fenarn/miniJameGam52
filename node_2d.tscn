@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://bqcma58wycrjq" path="res://Materials/IceRink.png" id="1_rj586"]
 [ext_resource type="Script" uid="uid://cr5mab3n1ikov" path="res://Scripts/Player.cs" id="2_0e48y"]
-[ext_resource type="Texture2D" uid="uid://bv66vnji2y3is" path="res://Materials/ZombskiDead.png" id="3_nr8wp"]
 [ext_resource type="Texture2D" uid="uid://cnt68ec2brn8c" path="res://Materials/AreaCircle.png" id="4_0h7mo"]
 [ext_resource type="Script" uid="uid://dcawsj87ejxbc" path="res://Scripts/BoostBar.cs" id="4_0hol4"]
 [ext_resource type="Texture2D" uid="uid://hpwfq4nnadkt" path="res://Materials/Train.png" id="4_d2bti"]
@@ -10,12 +9,13 @@
 [ext_resource type="Theme" uid="uid://bkv6vr1u44luv" path="res://BoostTheme.tres" id="5_4d7sh"]
 [ext_resource type="Script" uid="uid://dl07kh1uqcya2" path="res://Scripts/DebugOut.cs" id="5_q6r6c"]
 [ext_resource type="Texture2D" uid="uid://bkofnia6is8hb" path="res://Materials/Steam.png" id="6_d2bti"]
-[ext_resource type="PackedScene" uid="uid://i4wkfc1pu1si" path="res://Blueprints/zombie.tscn" id="7_d21ai"]
 [ext_resource type="Theme" uid="uid://gflk662ddj5g" path="res://WhistleTheme.tres" id="7_ir8iy"]
 [ext_resource type="Texture2D" uid="uid://bofb5l3clm3qg" path="res://Materials/Flame.png" id="7_ta5nu"]
 [ext_resource type="Script" uid="uid://cw7vxd2mqmmd8" path="res://Scripts/WhistleBar.cs" id="8_x0ka3"]
 [ext_resource type="Theme" uid="uid://penjk8d570qj" path="res://Keys.tres" id="9_hqns4"]
 [ext_resource type="Script" uid="uid://dhusetss8b6os" path="res://Scripts/ButtonPressed.cs" id="9_ir8iy"]
+[ext_resource type="Script" uid="uid://c3vw0qwubxm3r" path="res://Scripts/SpawnSystem.cs" id="15_ta5nu"]
+[ext_resource type="Script" uid="uid://5tba7vn0jp51" path="res://Scripts/SpawnPoint.cs" id="16_ta5nu"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rj586"]
 normal = Vector2(1, 0)
@@ -85,8 +85,8 @@ shape = SubResource("WorldBoundaryShape2D_ir8iy")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Background/StaticBody2D" unique_id=452572006]
 shape = SubResource("WorldBoundaryShape2D_hqns4")
 
-[node name="PlayerCharacter" type="RigidBody2D" parent="." unique_id=1644462876 node_paths=PackedStringArray("flames", "whistleColArea")]
-position = Vector2(-1, -4)
+[node name="PlayerCharacter" type="RigidBody2D" parent="." unique_id=1644462876]
+position = Vector2(-1, -6)
 mass = 1000.0
 gravity_scale = 0.0
 can_sleep = false
@@ -100,10 +100,6 @@ nitrousImpulseSpeed = 8000.0
 boostDriftActive = true
 minimumDriftVelocity = 50.0
 driftMultiplier = 0.002
-flames = NodePath("GPUParticles2DFlames")
-whistleColArea = NodePath("Area2D")
-whistleRadiusMod = 0.2
-zombieDead = ExtResource("3_nr8wp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacter" unique_id=1394125225]
 position = Vector2(0, 11)
@@ -276,15 +272,39 @@ text = "→"
 script = ExtResource("9_ir8iy")
 right = true
 
-[node name="Zombie" parent="." unique_id=1425535894 node_paths=PackedStringArray("player") instance=ExtResource("7_d21ai")]
-position = Vector2(258, 126)
-player = NodePath("../PlayerCharacter")
-damping = 3.0
+[node name="SpawnSystem" type="Node2D" parent="." unique_id=502704677]
+position = Vector2(-5, -424)
+script = ExtResource("15_ta5nu")
 
-[node name="SpawnPoint" type="Node2D" parent="." unique_id=1087031398]
-position = Vector2(618, 249)
+[node name="SpawnPoint" type="Node2D" parent="SpawnSystem" unique_id=1087031398]
+script = ExtResource("16_ta5nu")
+minSpawnDistance = 150.0
+
+[node name="SpawnPoint2" type="Node2D" parent="SpawnSystem" unique_id=464317384]
+position = Vector2(623, 120)
+script = ExtResource("16_ta5nu")
+minSpawnDistance = 150.0
+
+[node name="SpawnPoint3" type="Node2D" parent="SpawnSystem" unique_id=1238649724]
+position = Vector2(623, 673)
+script = ExtResource("16_ta5nu")
+minSpawnDistance = 150.0
+
+[node name="SpawnPoint4" type="Node2D" parent="SpawnSystem" unique_id=669701964]
+position = Vector2(-2, 776)
+script = ExtResource("16_ta5nu")
+minSpawnDistance = 150.0
+
+[node name="SpawnPoint5" type="Node2D" parent="SpawnSystem" unique_id=253544408]
+position = Vector2(-609, 678)
+script = ExtResource("16_ta5nu")
+minSpawnDistance = 150.0
+
+[node name="SpawnPoint6" type="Node2D" parent="SpawnSystem" unique_id=236786220]
+position = Vector2(-615, 113)
+script = ExtResource("16_ta5nu")
+minSpawnDistance = 150.0
 
 [connection signal="BoostUI" from="PlayerCharacter" to="UI/BoostBar" method="UpdateBoost"]
 [connection signal="Log" from="PlayerCharacter" to="UI/Debug1" method="OutputText"]
 [connection signal="UI" from="PlayerCharacter" to="UI" method="SetPos"]
-[connection signal="WhistleUI" from="PlayerCharacter" to="UI/WhistleBar" method="UpdateWhistle"]

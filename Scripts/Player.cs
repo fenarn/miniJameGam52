@@ -118,7 +118,7 @@ public partial class Player : RigidBody2D
 
 
 		//Adjust the whistle area collider
-		whistleColArea.Scale = new Vector2(whistleCoolLeft * whistleRadiusMod, whistleCoolLeft * whistleRadiusMod);
+		//whistleColArea.Scale = new Vector2(whistleCoolLeft * whistleRadiusMod, whistleCoolLeft * whistleRadiusMod);
 		
 
 		//Boost Controls
@@ -158,7 +158,7 @@ public partial class Player : RigidBody2D
 				driftGuage += (driftMultiplier * (3.14f - driftAmount) * (LinearVelocity.Length() * 0.01f));
 		}
 
-		EmitSignal(SignalName.Log, (3.14f - driftAmount) + ", \n" + (minimumDriftAngle) + ", \n" + LinearVelocity.Length()+ ", \n" + whistleCoolLeft);
+		//EmitSignal(SignalName.Log, (3.14f - driftAmount) + ", \n" + (minimumDriftAngle) + ", \n" + LinearVelocity.Length()+ ", \n" + whistleCoolLeft);
 
 		//Decide whether to apply the boost
 		if(nitrousBoost){
