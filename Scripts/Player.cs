@@ -39,6 +39,8 @@ public partial class Player : RigidBody2D
 
 
 	[Export] public float whistleCoolDown = 5;
+	[Export] public Area2D whistleColArea;
+	[Export] public float whistleRadiusMod = 50f;
 	float whistleCoolLeft = 0;
 
 
@@ -71,11 +73,10 @@ public partial class Player : RigidBody2D
 		if (@event.IsActionPressed("whistle"))
 		{
 			//Check to see if the timer cooldown has ended
-			if(whistleCoolLeft > 0){
-				return;
-			}
-			
-			whistleCoolLeft = whistleCoolDown;
+			//if(whistleCoolLeft > 0){
+			//	return;
+			//}
+			whistleCoolLeft = 0;
 		}
 	}
 
@@ -102,15 +103,17 @@ public partial class Player : RigidBody2D
 		}
 
 
+		//Adjust the whistle area collider
+		whistleColArea.Scale = new Vector2(whistleCoolLeft * whistleRadiusMod, whistleCoolLeft * whistleRadiusMod);
 		
 
 		//Boost Controls
 		BoostController(delta, forwardDir);
 
 
-		if(whistleCoolLeft >= 0)
+		if(whistleCoolLeft <= whistleCoolDown)
 		{
-			whistleCoolLeft -= (float)delta;
+			whistleCoolLeft += (float)delta;
 		}
 	}
 
