@@ -44,6 +44,11 @@ public partial class Zombie : RigidBody2D
 
 
 
+	[Export]
+	public int attackDamage = 5;
+
+
+
 
 	float CalcTimeTillNextAttack()
 	{
@@ -143,7 +148,8 @@ public partial class Zombie : RigidBody2D
 		{
 			//Set the direction for the attack in stone
 			attackDir = target.Normalized();
-			AngularDamp = 100;
+			Rotation = attackDir.Angle() + ((float)Math.PI / 2);
+			LockRotation = true;
 			GetNode<Sprite2D>("Sprite2D").Texture = zombieChargeMat;
 			attackState = AttackState.charging;
 			timerAttackChargeTime.Start(attackChargeTime);
@@ -173,7 +179,7 @@ public partial class Zombie : RigidBody2D
 		//Don't do this if frozen
 		if(attackState == AttackState.frozen) return;
 
-		AngularDamp = 0;
+		LockRotation = false;
 		GetNode<Sprite2D>("Sprite2D").Texture = zombieMat;
 		timerAttack.Start(CalcTimeTillNextAttack());
 		attackState = AttackState.passive;
@@ -187,7 +193,7 @@ public partial class Zombie : RigidBody2D
 			//TODO: dealing actual damage to hp
 			if(playerLocal != null && playerLocal.healthPoints > 0)
 			{
-				playerLocal.healthPoints--;
+				playerLocal.healthPoints -= attackDamage;
 				GD.Print($"Dealt damage to {body.Name}");	
 			}
 			
