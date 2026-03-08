@@ -25,6 +25,10 @@ window/stretch/mode="viewport"
 
 project/assembly_name="miniJameGam52"
 
+[global_group]
+
+Health=""
+
 [input]
 
 forward={

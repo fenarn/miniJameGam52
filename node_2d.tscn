@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://k45fj25uptn6" path="res://Materials/IceRink.png" id="1_rj586"]
 [ext_resource type="Script" uid="uid://cr5mab3n1ikov" path="res://Scripts/Player.cs" id="2_0e48y"]
-[ext_resource type="Texture2D" uid="uid://dkfxcguthgw85" path="res://Materials/ZombieDead.png" id="3_rjqkl"]
 [ext_resource type="Texture2D" uid="uid://cnt68ec2brn8c" path="res://Materials/AreaCircle.png" id="4_0h7mo"]
 [ext_resource type="Script" uid="uid://dcawsj87ejxbc" path="res://Scripts/BoostBar.cs" id="4_0hol4"]
 [ext_resource type="Texture2D" uid="uid://hpwfq4nnadkt" path="res://Materials/Train.png" id="4_d2bti"]
@@ -21,6 +20,8 @@
 [ext_resource type="Script" uid="uid://5tba7vn0jp51" path="res://Scripts/SpawnPoint.cs" id="16_ta5nu"]
 [ext_resource type="Script" uid="uid://cbf2ses2e0u7n" path="res://Scripts/GameOver.cs" id="17_fs4d3"]
 [ext_resource type="Texture2D" uid="uid://gkkhwbms2g85" path="res://Materials/Zombski-cheer-sheet.png" id="18_k73cj"]
+[ext_resource type="Script" uid="uid://ct3tmegdih383" path="res://HealthSpawn.cs" id="20_fs4d3"]
+[ext_resource type="PackedScene" uid="uid://da4nyqynv6fis" path="res://Blueprints/health_box.tscn" id="21_7vxoj"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rj586"]
 normal = Vector2(1, 0)
@@ -125,6 +126,7 @@ shape = SubResource("WorldBoundaryShape2D_hqns4")
 
 [node name="PlayerCharacter" type="RigidBody2D" parent="." unique_id=1644462876 node_paths=PackedStringArray("flames", "whistleColArea")]
 position = Vector2(-1, -4)
+collision_layer = 3
 mass = 1000.0
 gravity_scale = 0.0
 can_sleep = false
@@ -144,7 +146,6 @@ driftMultiplier = 0.003
 flames = NodePath("GPUParticles2DFlames")
 whistleColArea = NodePath("Area2D")
 whistleRadiusMod = 0.2
-zombieDead = ExtResource("3_rjqkl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacter" unique_id=1394125225]
 position = Vector2(0, 11)
@@ -230,6 +231,7 @@ step = 1.0
 script = ExtResource("13_rjqkl")
 
 [node name="Debug1" type="Label" parent="UI" unique_id=1041243291]
+visible = false
 layout_mode = 0
 offset_left = -515.0
 offset_top = -268.0
@@ -666,6 +668,11 @@ rotation = 3.1415927
 sprite_frames = SubResource("SpriteFrames_ei405")
 autoplay = "default"
 frame = 1
+
+[node name="HealthSpawn" type="Node2D" parent="." unique_id=2046521552]
+script = ExtResource("20_fs4d3")
+spawnItem = ExtResource("21_7vxoj")
+spawnRate = 15.0
 
 [connection signal="BoostUI" from="PlayerCharacter" to="UI/BoostBar" method="UpdateBoost"]
 [connection signal="HealthUI" from="PlayerCharacter" to="UI/HealthBar" method="UpdateHealthBar"]

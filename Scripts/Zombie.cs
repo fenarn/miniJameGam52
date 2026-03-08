@@ -30,6 +30,8 @@ public partial class Zombie : RigidBody2D
 	private Texture2D zombieChargeMat;
 	[Export]
 	private Texture2D zombieLeapMat;
+	[Export]
+	private Texture2D zombieFreezeMat;
 
 	[Export]
 	private float attackChargeTime = 1f;
@@ -198,7 +200,20 @@ public partial class Zombie : RigidBody2D
 			}
 			
 		}
+
+		if(attackState == AttackState.frozen)
+		if(body is Zombie otherZombie)
+		{
+			otherZombie.FreezeZombie();
+		}
 		
+	}
+
+
+	public void FreezeZombie()
+	{
+		attackState = AttackState.frozen;
+		GetNode<Sprite2D>("Sprite2D").Texture = zombieFreezeMat;
 	}
 
 }
