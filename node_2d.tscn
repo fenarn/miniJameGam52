@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://cw7vxd2mqmmd8" path="res://Scripts/WhistleBar.cs" id="8_x0ka3"]
 [ext_resource type="Theme" uid="uid://penjk8d570qj" path="res://Keys.tres" id="9_hqns4"]
 [ext_resource type="Script" uid="uid://dhusetss8b6os" path="res://Scripts/ButtonPressed.cs" id="9_ir8iy"]
+[ext_resource type="Theme" uid="uid://cnuf0wjk4c76m" path="res://HealthTheme.tres" id="13_fs4d3"]
 [ext_resource type="Script" uid="uid://c41fuwy1a0i8x" path="res://Scripts/HealthBar.cs" id="13_rjqkl"]
 [ext_resource type="Script" uid="uid://c3vw0qwubxm3r" path="res://Scripts/SpawnSystem.cs" id="15_ta5nu"]
 [ext_resource type="Script" uid="uid://5tba7vn0jp51" path="res://Scripts/SpawnPoint.cs" id="16_ta5nu"]
@@ -193,9 +194,9 @@ speed = 0.1
 [node name="BoostBar" type="ProgressBar" parent="UI" unique_id=1480930615]
 layout_mode = 0
 offset_left = -549.0
-offset_top = 278.0
+offset_top = 299.0
 offset_right = -219.0
-offset_bottom = 330.0
+offset_bottom = 331.0
 theme = ExtResource("5_4d7sh")
 theme_type_variation = &"BoilerBoost"
 max_value = 1.0
@@ -205,9 +206,9 @@ script = ExtResource("4_0hol4")
 [node name="WhistleBar" type="ProgressBar" parent="UI" unique_id=2070078771]
 layout_mode = 0
 offset_left = 216.0
-offset_top = 278.0
+offset_top = 299.0
 offset_right = 546.0
-offset_bottom = 330.0
+offset_bottom = 331.0
 theme = ExtResource("7_ir8iy")
 max_value = 5.0
 show_percentage = false
@@ -215,10 +216,11 @@ script = ExtResource("8_x0ka3")
 
 [node name="HealthBar" type="ProgressBar" parent="UI" unique_id=1387331726]
 layout_mode = 0
-offset_left = -616.0
-offset_top = -350.0
-offset_right = 620.0
-offset_bottom = -323.0
+offset_left = -549.0
+offset_top = -340.0
+offset_right = 546.0
+offset_bottom = -308.0
+theme = ExtResource("13_fs4d3")
 step = 1.0
 script = ExtResource("13_rjqkl")
 
@@ -267,10 +269,10 @@ text = "[Space]"
 
 [node name="Up" type="Button" parent="UI" unique_id=367294418]
 layout_mode = 0
-offset_left = -18.0
-offset_top = 253.0
-offset_right = 19.0
-offset_bottom = 290.0
+offset_left = -15.0
+offset_top = 259.0
+offset_right = 17.0
+offset_bottom = 291.0
 mouse_filter = 2
 theme = ExtResource("9_hqns4")
 toggle_mode = true
@@ -281,10 +283,10 @@ up = true
 
 [node name="Down" type="Button" parent="UI" unique_id=222522951]
 layout_mode = 0
-offset_left = -18.0
-offset_top = 293.0
-offset_right = 19.0
-offset_bottom = 330.0
+offset_left = -15.0
+offset_top = 299.0
+offset_right = 17.0
+offset_bottom = 331.0
 mouse_filter = 2
 theme = ExtResource("9_hqns4")
 toggle_mode = true
@@ -295,10 +297,10 @@ down = true
 
 [node name="Left" type="Button" parent="UI" unique_id=366754864]
 layout_mode = 0
-offset_left = -58.0
-offset_top = 293.0
-offset_right = -21.0
-offset_bottom = 330.0
+offset_left = -55.0
+offset_top = 299.0
+offset_right = -23.0
+offset_bottom = 331.0
 mouse_filter = 2
 theme = ExtResource("9_hqns4")
 toggle_mode = true
@@ -309,10 +311,10 @@ left = true
 
 [node name="Leftlessness" type="Button" parent="UI" unique_id=587338114]
 layout_mode = 0
-offset_left = 22.0
-offset_top = 293.0
-offset_right = 59.0
-offset_bottom = 330.0
+offset_left = 25.0
+offset_top = 299.0
+offset_right = 57.0
+offset_bottom = 331.0
 mouse_filter = 2
 theme = ExtResource("9_hqns4")
 toggle_mode = true
