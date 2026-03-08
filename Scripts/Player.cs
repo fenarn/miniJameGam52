@@ -91,7 +91,7 @@ public partial class Player : RigidBody2D
 			{
 				if(obj is Zombie zombie)
 				{
-					zombie.frozen = true;
+					zombie.attackState = AttackState.frozen;
 					zombie.GetNode<Sprite2D>("Sprite2D").Texture = zombieDead;
 				}
 			}

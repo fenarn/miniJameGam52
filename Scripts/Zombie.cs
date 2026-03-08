@@ -1,6 +1,9 @@
 using Godot;
 using System;
 
+
+public enum AttackState{passive, charging, attacking, frozen};
+
 public partial class Zombie : RigidBody2D
 {
 	[Export]
@@ -13,8 +16,6 @@ public partial class Zombie : RigidBody2D
 	public float damping = 3f;
 
 
-
-	[Export] public bool frozen = false;
 	[Export] public float frozenKillTimer = 3f;
     
 	[Export]
@@ -31,13 +32,24 @@ public partial class Zombie : RigidBody2D
 	private Texture2D zombieLeapMat;
 
 	[Export]
-	private float attackPrechargeTime = 0.5f;
+	private float attackChargeTime = 1f;
 
 	private float attackEffectiveTime = 0.5f;
 
-	Timer timerAttack, timerAttackEffective, timerAttackPreCharge;
+	Timer timerAttack, timerAttackEffective, timerAttackChargeTime;
 
-	bool attackEffective = true;
+	Vector2 attackDir;
+
+	public AttackState attackState;
+
+
+
+
+	float CalcTimeTillNextAttack()
+	{
+		return (float)leapAttackWait + (float)GD.RandRange(-0.5f,2f);
+	}
+
 
 
 
@@ -48,33 +60,42 @@ public partial class Zombie : RigidBody2D
 		{
 			player = GetNode("/root/Scene/PlayerCharacter") as RigidBody2D;			
 		}
-		timerAttack = new Timer();
-		timerAttack.WaitTime = leapAttackWait + GD.RandRange(-0.5f,2f);
-		timerAttack.Timeout += LeapAttack;
-		timerAttack.Autostart = true;
 
+
+		//Time until testing for LeapAttack
+		timerAttack = new Timer();
+		timerAttack.Timeout += LeapAttackTest;
+		timerAttack.OneShot = true; 
+		AddChild(timerAttack); 
+		timerAttack.Start(CalcTimeTillNextAttack());
+
+
+		//Time between testing, and attacking
+		timerAttackChargeTime = new Timer();
+		timerAttackChargeTime.Timeout += LeapAttack;
+		timerAttackChargeTime.OneShot = true; 
+		AddChild(timerAttackChargeTime);
+
+
+		//Amount of time the damage window is open for
 		timerAttackEffective = new Timer();
 		timerAttackEffective.Timeout += SetAttackIneffective;
 		timerAttackEffective.WaitTime = attackEffectiveTime;
-		timerAttackEffective.Autostart = false;
 		timerAttackEffective.OneShot = true; 
-
-		timerAttackPreCharge = new Timer();
-		timerAttackPreCharge.Timeout += PreLeapAttack;
-		timerAttackPreCharge.WaitTime = timerAttack.WaitTime - attackPrechargeTime;
-		timerAttack.Autostart = true;
-		
-		AddChild(timerAttack); 
 		AddChild(timerAttackEffective);
-		AddChild(timerAttackPreCharge);
+
+		
+		
 
 		BodyEntered += OnBodyEntered;
 	}
 
+
+
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
-		if ((player != null) && (frozen == false))
+		if ((player != null) && (attackState == AttackState.passive))
 		{
 			Vector2 target = player.GlobalPosition - GlobalPosition;
 			Vector2 direction = target.Normalized();
@@ -86,13 +107,14 @@ public partial class Zombie : RigidBody2D
 			//float angleRotated = Mathf.Wrap(angle + Mathf.Pi / 2f, -Mathf.Pi, Mathf.Pi);
 
 			//F   -aljowen
-			
+
 			ApplyTorqueImpulse(angle*torqueStrength - AngularVelocity * damping);
 			ApplyForce(direction * thrust);
-
+			
+			
 			
 		}
-		else if(frozen)
+		else if(attackState == AttackState.frozen)
 		{
 			//If the zombie is frozen start killing them
 			frozenKillTimer -= (float)delta;
@@ -106,43 +128,60 @@ public partial class Zombie : RigidBody2D
 
 
 
-	public void PreLeapAttack()
+	public void LeapAttackTest()
 	{
-		GetNode<Sprite2D>("Sprite2D").Texture = zombieChargeMat;
+		//Check for correct state
+		if(attackState != AttackState.passive) return;
+
+
+		//Figure out if zombie is close to player
+		Vector2 target = player.GlobalPosition - GlobalPosition;
+		float playerDistance = GlobalPosition.DistanceTo(player.GlobalPosition);
+
+		//If they are close, start charging the attack
+		if(playerDistance <= leapDistance)
+		{
+			//Set the direction for the attack in stone
+			attackDir = target.Normalized();
+			AngularDamp = 100;
+			GetNode<Sprite2D>("Sprite2D").Texture = zombieChargeMat;
+			attackState = AttackState.charging;
+			timerAttackChargeTime.Start(attackChargeTime);
+		}
+		else
+		{
+			SetAttackIneffective();
+		}
 	}
 
 
 	public void LeapAttack()
 	{
-		Vector2 target = player.GlobalPosition - GlobalPosition;
-		Vector2 direction = target.Normalized();
-		Vector2 forward = -Transform.Y;
+		//Check for correct state
+		if(attackState != AttackState.charging) return;
 
-		float angle = forward.AngleTo(direction);
+		ApplyImpulse(attackDir * leapForce);
 
-		float playerDistance = GlobalPosition.DistanceTo(player.GlobalPosition);
-		if(playerDistance <= leapDistance && !frozen)
-		{
-			ApplyImpulse(direction * leapForce);
-			timerAttack.WaitTime = leapAttackWait + GD.RandRange(-0.5f,2f);
-			timerAttackPreCharge.WaitTime = timerAttack.WaitTime - attackPrechargeTime;
-			//GD.Print("LEAP ATTACK! " + timerAttack.WaitTime);
-			attackEffective = true;
-			timerAttackEffective.Start();
-			GetNode<Sprite2D>("Sprite2D").Texture = zombieLeapMat;
-		}
+		attackState = AttackState.attacking;
+		timerAttackEffective.Start();
+
+		GetNode<Sprite2D>("Sprite2D").Texture = zombieLeapMat;		
 	}
 
 	private void SetAttackIneffective()
 	{
-		attackEffective = false;
+		//Don't do this if frozen
+		if(attackState == AttackState.frozen) return;
+
+		AngularDamp = 0;
 		GetNode<Sprite2D>("Sprite2D").Texture = zombieMat;
-		//GD.Print("Won't damage anymore");
+		timerAttack.Start(CalcTimeTillNextAttack());
+		attackState = AttackState.passive;
 	}
 
 	private void OnBodyEntered(Node body)
 	{
-		if(attackEffective && body.Name == "PlayerCharacter")
+		if(attackState == AttackState.attacking && body.Name == "PlayerCharacter")
 		{
 			Player playerLocal = body as Player;
 			//TODO: dealing actual damage to hp
@@ -155,4 +194,5 @@ public partial class Zombie : RigidBody2D
 		}
 		
 	}
+
 }
