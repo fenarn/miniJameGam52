@@ -16,17 +16,28 @@ public partial class Zombie : RigidBody2D
 
 	[Export] public bool frozen = false;
 	[Export] public float frozenKillTimer = 3f;
+    
+	[Export]
+	private float leapDistance = 200f;
+	[Export]
+	private float leapForce = 150f;
 
 
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
 		if(player == null)
 		{
 			player = GetNode("/root/Scene/PlayerCharacter") as RigidBody2D;			
 		}
+		Timer timer = new Timer();
+		timer.WaitTime = 5f;
+		timer.Timeout += LeapAttack;
+		timer.Autostart = true;
 
+		AddChild(timer); 
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -34,7 +45,7 @@ public partial class Zombie : RigidBody2D
 	{
 		if ((player != null) && (frozen == false))
 		{
-			Vector2 target = (player.GlobalPosition - GlobalPosition);
+			Vector2 target = player.GlobalPosition - GlobalPosition;
 			Vector2 direction = target.Normalized();
 			Vector2 forward = -Transform.Y;
 
@@ -55,6 +66,23 @@ public partial class Zombie : RigidBody2D
 			{
 				QueueFree();
 			}
+		}
+	}
+
+	public void LeapAttack()
+	{
+		Vector2 target = player.GlobalPosition - GlobalPosition;
+		Vector2 direction = target.Normalized();
+		Vector2 forward = -Transform.Y;
+
+		float angle = forward.AngleTo(direction);
+
+		float playerDistance = GlobalPosition.DistanceTo(player.GlobalPosition);
+		if(playerDistance <= leapDistance && !frozen)
+		{
+			ApplyImpulse(direction * leapForce);
+
+			GD.Print("LEAP ATTACK!");
 		}
 	}
 }
