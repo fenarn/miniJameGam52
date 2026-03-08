@@ -207,4 +207,17 @@ public partial class Player : RigidBody2D
 
 		EmitSignal(SignalName.HealthUI, healthPoints);
 	}
+
+
+
+
+
+	void ZombieCollisionDamage(Node obj)
+	{
+		if(obj is Zombie zombie)
+		{
+			if(zombie.attackState == AttackState.passive || zombie.attackState == AttackState.charging)
+				healthPoints -= 1;
+		}
+	}
 }
