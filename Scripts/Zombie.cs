@@ -143,6 +143,7 @@ public partial class Zombie : RigidBody2D
 		{
 			//Set the direction for the attack in stone
 			attackDir = target.Normalized();
+			AngularDamp = 100;
 			GetNode<Sprite2D>("Sprite2D").Texture = zombieChargeMat;
 			attackState = AttackState.charging;
 			timerAttackChargeTime.Start(attackChargeTime);
@@ -172,6 +173,7 @@ public partial class Zombie : RigidBody2D
 		//Don't do this if frozen
 		if(attackState == AttackState.frozen) return;
 
+		AngularDamp = 0;
 		GetNode<Sprite2D>("Sprite2D").Texture = zombieMat;
 		timerAttack.Start(CalcTimeTillNextAttack());
 		attackState = AttackState.passive;
