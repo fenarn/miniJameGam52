@@ -173,9 +173,8 @@ public partial class Zombie : RigidBody2D
 		if(attackState == AttackState.frozen) return;
 
 		GetNode<Sprite2D>("Sprite2D").Texture = zombieMat;
-		attackState = AttackState.passive;
-
 		timerAttack.Start(CalcTimeTillNextAttack());
+		attackState = AttackState.passive;
 	}
 
 	private void OnBodyEntered(Node body)
