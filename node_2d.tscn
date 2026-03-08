@@ -190,6 +190,8 @@ amount = 10
 texture = ExtResource("7_ta5nu")
 process_material = SubResource("ParticleProcessMaterial_flf07")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="PlayerCharacter" unique_id=901877557]
+
 [node name="UI" type="Control" parent="." unique_id=1757938355]
 z_index = 99
 layout_mode = 3
