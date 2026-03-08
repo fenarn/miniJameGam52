@@ -52,6 +52,8 @@ public partial class Zombie : RigidBody2D
 
 	[Export] public GpuParticles2D blood;
 
+	[Export] AudioStreamPlayer2D attackSound;
+
 
 
 	[Export]
@@ -175,6 +177,8 @@ public partial class Zombie : RigidBody2D
 			GetNode<Sprite2D>("Sprite2D").Texture = zombieChargeMat;
 			attackState = AttackState.charging;
 			timerAttackChargeTime.Start(attackChargeTime);
+
+			attackSound.Play();
 		}
 		else
 		{
