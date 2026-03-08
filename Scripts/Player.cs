@@ -53,11 +53,17 @@ public partial class Player : RigidBody2D
 	[Export]
 	public int maxHealthPoints = 50;
 
+	public int zombiesKilled = 0;
+	public float timeSurvivedSeconds = 0;
+
+	Timer timer;
+
 	public bool isDead = false;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		healthPoints = maxHealthPoints;
+		
 	}
 
 	public override void _Input(InputEvent @event)
@@ -138,6 +144,8 @@ public partial class Player : RigidBody2D
 		{
 			whistleCoolLeft += ((float)delta + (whistleCoolDown - whistleCoolLeft) * 0.04f) * 0.3f;
 		}
+		
+		timeSurvivedSeconds += (float)delta;
 
 		if(healthPoints <= 0 && !isDead)
 		{
@@ -145,6 +153,8 @@ public partial class Player : RigidBody2D
 			GameOver goScreen = GetNode("/root/Scene/UI/GameOver") as GameOver;
 			goScreen.Visible = true;
 			goScreen.IsPlayerDead = true;
+			goScreen.TimeSurvived = timeSurvivedSeconds;
+			goScreen.ZombiesKilled = zombiesKilled;
 			GD.Print("imma dead baus T_T");
 		}
 	}
