@@ -143,6 +143,7 @@ public partial class Player : RigidBody2D
 		{
 			isDead = true; // :(
 			GameOver goScreen = GetNode("/root/Scene/UI/GameOver") as GameOver;
+			goScreen.Visible = true;
 			goScreen.IsPlayerDead = true;
 			GD.Print("imma dead baus T_T");
 		}

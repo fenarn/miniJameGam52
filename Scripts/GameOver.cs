@@ -20,17 +20,15 @@ public partial class GameOver : Control
 		goColor = GetNode("GOColor") as ColorRect;
 		goLabel = GetNode("GOLabel") as Label;
 
-		//Visible = false;
+		Visible = false;
 
 		color = goColor.Color;
 		labelColor = goLabel.LabelSettings.FontColor;
 		color.A8 = 0;
 		labelColor.A8 = 0;
 
-		goColor.Color = color;//new Color(0,0,0,0);
+		goColor.Color = color;
 		goLabel.LabelSettings.FontColor = labelColor;
-
-		//GD.Print(goColor.Color.A8);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
