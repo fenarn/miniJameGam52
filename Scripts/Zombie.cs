@@ -24,7 +24,11 @@ public partial class Zombie : RigidBody2D
 	[Export]
 	private float leapAttackWait = 5f;
 
-	Timer timer;
+	private float attackEffectiveTime = 0.5f;
+
+	Timer timerAttack, timerAttackEffective;
+
+	bool attackEffective = true;
 
 
 
@@ -35,12 +39,21 @@ public partial class Zombie : RigidBody2D
 		{
 			player = GetNode("/root/Scene/PlayerCharacter") as RigidBody2D;			
 		}
-		timer = new Timer();
-		timer.WaitTime = leapAttackWait + GD.RandRange(-0.5f,2f);
-		timer.Timeout += LeapAttack;
-		timer.Autostart = true;
+		timerAttack = new Timer();
+		timerAttack.WaitTime = leapAttackWait + GD.RandRange(-0.5f,2f);
+		timerAttack.Timeout += LeapAttack;
+		timerAttack.Autostart = true;
 
-		AddChild(timer); 
+		timerAttackEffective = new Timer();
+		timerAttackEffective.Timeout += SetAttackIneffective;
+		timerAttackEffective.WaitTime = attackEffectiveTime;
+		timerAttackEffective.Autostart = false;
+		timerAttackEffective.OneShot = true;
+		
+		AddChild(timerAttack); 
+		AddChild(timerAttackEffective);
+
+		BodyEntered += OnBodyEntered;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,8 +70,10 @@ public partial class Zombie : RigidBody2D
 			//This little commented snippet below is gonne be left here as a testament to mine (Fenarn's) humongous stupidity.
 			//float angleRotated = Mathf.Wrap(angle + Mathf.Pi / 2f, -Mathf.Pi, Mathf.Pi);
 			
-			ApplyTorqueImpulse(angle*torqueStrength- AngularVelocity * damping);
+			ApplyTorqueImpulse(angle*torqueStrength - AngularVelocity * damping);
 			ApplyForce(direction * thrust);
+
+			
 		}
 		else if(frozen)
 		{
@@ -84,8 +99,26 @@ public partial class Zombie : RigidBody2D
 		if(playerDistance <= leapDistance && !frozen)
 		{
 			ApplyImpulse(direction * leapForce);
-			timer.WaitTime = leapAttackWait + GD.RandRange(-0.5f,2f);
-			GD.Print("LEAP ATTACK!");
+			timerAttack.WaitTime = leapAttackWait + GD.RandRange(-0.5f,2f);
+			//GD.Print("LEAP ATTACK! " + timerAttack.WaitTime);
+			attackEffective = true;
+			timerAttackEffective.Start();
 		}
+	}
+
+	private void SetAttackIneffective()
+	{
+		attackEffective = false;
+		//GD.Print("Won't damage anymore");
+	}
+
+	private void OnBodyEntered(Node body)
+	{
+		if(attackEffective && body.Name == "PlayerCharacter")
+		{
+			//TODO: dealing actual damage to hp
+			GD.Print($"Would deal damage to {body.Name}");
+		}
+		
 	}
 }

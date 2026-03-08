@@ -9,6 +9,8 @@ radius = 16.17
 [node name="Zombie" type="RigidBody2D" unique_id=1425535894]
 mass = 0.5
 gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 5
 angular_damp = -1.0
 script = ExtResource("1_p1neq")
 torqueStrength = 2.0

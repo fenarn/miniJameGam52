@@ -121,6 +121,8 @@ position = Vector2(-1, -4)
 mass = 1000.0
 gravity_scale = 0.0
 can_sleep = false
+contact_monitor = true
+max_contacts_reported = 5
 linear_damp = 1.0
 angular_damp = 0.6
 script = ExtResource("2_0e48y")
@@ -309,7 +311,7 @@ script = ExtResource("9_ir8iy")
 right = true
 
 [node name="SpawnSystem" type="Node2D" parent="." unique_id=502704677]
-position = Vector2(-5, -424)
+position = Vector2(20, -453)
 script = ExtResource("15_ta5nu")
 
 [node name="SpawnPoint" type="Node2D" parent="SpawnSystem" unique_id=1087031398]
