@@ -4,12 +4,22 @@
 [ext_resource type="Texture2D" uid="uid://bxltwqxs2gu8v" path="res://Materials/Zombski.png" id="2_6evcj"]
 [ext_resource type="Texture2D" uid="uid://dqboc5tby2ug" path="res://Materials/ZombskiLeap.png" id="2_uud0w"]
 [ext_resource type="Texture2D" uid="uid://ohgf666c0b8f" path="res://Materials/ZombskiCharge.png" id="2_w0vy5"]
-[ext_resource type="Texture2D" uid="uid://dkfxcguthgw85" path="res://Materials/ZombieDead.png" id="5_w0vy5"]
+[ext_resource type="Texture2D" uid="uid://dh3qy4w1mqfy7" path="res://Materials/ZombieFrozen.png" id="5_w0vy5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0e48y"]
 radius = 16.17
 
-[node name="Zombie" type="RigidBody2D" unique_id=1425535894]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w0vy5"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_max = 47.32
+gravity = Vector3(0, 0, 0)
+scale_max = 5.0
+scale_over_velocity_min = 22.25
+scale_over_velocity_max = 903.12
+color = Color(0.5833334, 1, 0, 1)
+
+[node name="Zombie" type="RigidBody2D" unique_id=1425535894 node_paths=PackedStringArray("blood")]
 texture_filter = 1
 mass = 0.5
 gravity_scale = 0.0
@@ -20,16 +30,21 @@ script = ExtResource("1_p1neq")
 thrust = 25.0
 torqueStrength = 2.0
 damping = 1.0
-frozenKillTimer = 2.0
 leapDistance = 300.0
 zombieMat = ExtResource("2_6evcj")
 zombieChargeMat = ExtResource("2_w0vy5")
 zombieLeapMat = ExtResource("2_uud0w")
 zombieFreezeMat = ExtResource("5_w0vy5")
-attackDamage = 10
+blood = NodePath("GPUParticles2D")
+attackDamage = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=26357535]
 shape = SubResource("CircleShape2D_0e48y")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1856474727]
 texture = ExtResource("2_6evcj")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=696289986]
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_w0vy5")
