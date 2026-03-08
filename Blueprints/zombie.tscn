@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://i4wkfc1pu1si"]
 
 [ext_resource type="Script" uid="uid://b1du26558q5gu" path="res://Scripts/Zombie.cs" id="1_p1neq"]
-[ext_resource type="Texture2D" uid="uid://cimvb2dqantg4" path="res://Materials/Zombski.png" id="2_6evcj"]
+[ext_resource type="Texture2D" uid="uid://bxltwqxs2gu8v" path="res://Materials/Zombski.png" id="2_6evcj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0e48y"]
 radius = 16.17

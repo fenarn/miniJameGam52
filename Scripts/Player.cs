@@ -46,6 +46,8 @@ public partial class Player : RigidBody2D
 	[Export] public Texture2D zombieDead;
 	bool monitoringDisableDelay = false;
 
+	[Export]
+	public int healthPoints = 50;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
