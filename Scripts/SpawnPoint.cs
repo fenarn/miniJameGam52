@@ -49,7 +49,6 @@ public partial class SpawnPoint : Node2D
 			instantiatedZombie = ZombiePrefab.Instantiate() as Zombie;
 			instantiatedZombie.GlobalPosition = GlobalPosition;
 			GetTree().CurrentScene.AddChild(instantiatedZombie);
-			GD.Print(instantiatedZombie.Name);	
 		}
 	}
 }
