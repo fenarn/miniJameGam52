@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://k45fj25uptn6"
-path="res://.godot/imported/IceRink.png-02dfd84ab951ec277cce05ef900489d6.ctex"
+uid="uid://gkkhwbms2g85"
+path="res://.godot/imported/Zombski-cheer-sheet.png-0575e549051bac136c832715442073ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Materials/IceRink.png"
-dest_files=["res://.godot/imported/IceRink.png-02dfd84ab951ec277cce05ef900489d6.ctex"]
+source_file="res://Materials/Zombski-cheer-sheet.png"
+dest_files=["res://.godot/imported/Zombski-cheer-sheet.png-0575e549051bac136c832715442073ea.ctex"]
 
 [params]
 
