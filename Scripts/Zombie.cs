@@ -7,7 +7,8 @@ public enum AttackState{passive, charging, attacking, frozen};
 public partial class Zombie : RigidBody2D
 {
 	[Export]
-	RigidBody2D player;
+	//RigidBody2D player;
+	Player player;
 	[Export]
 	public float thrust = 10f;
 	[Export]
@@ -75,7 +76,7 @@ public partial class Zombie : RigidBody2D
 	{
 		if(player == null)
 		{
-			player = GetNode("/root/Scene/PlayerCharacter") as RigidBody2D;			
+			player = GetNode("/root/Scene/PlayerCharacter") as Player;			
 		}
 
 
@@ -142,6 +143,7 @@ public partial class Zombie : RigidBody2D
 			{
 				if (scheduleForDeathWaitRebirthIDontKnowEitherWayTheZombieGetsDestroyed)
 				{
+					player.zombiesKilled++;
 					QueueFree();
 				}
 				else
@@ -219,7 +221,6 @@ public partial class Zombie : RigidBody2D
 		if(attackState == AttackState.attacking && body.Name == "PlayerCharacter")
 		{
 			Player playerLocal = body as Player;
-			//TODO: dealing actual damage to hp
 			if(playerLocal != null && playerLocal.healthPoints > 0)
 			{
 				playerLocal.healthPoints -= attackDamage;
