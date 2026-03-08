@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://c41fuwy1a0i8x" path="res://Scripts/HealthBar.cs" id="13_rjqkl"]
 [ext_resource type="Script" uid="uid://c3vw0qwubxm3r" path="res://Scripts/SpawnSystem.cs" id="15_ta5nu"]
 [ext_resource type="Script" uid="uid://5tba7vn0jp51" path="res://Scripts/SpawnPoint.cs" id="16_ta5nu"]
+[ext_resource type="Script" uid="uid://cbf2ses2e0u7n" path="res://Scripts/GameOver.cs" id="17_fs4d3"]
 [ext_resource type="Texture2D" uid="uid://gkkhwbms2g85" path="res://Materials/Zombski-cheer-sheet.png" id="18_k73cj"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rj586"]
@@ -62,6 +63,10 @@ initial_velocity_min = 120.689995
 initial_velocity_max = 206.94
 gravity = Vector3(0, 0, 0)
 scale_min = 0.5
+
+[sub_resource type="LabelSettings" id="LabelSettings_7vxoj"]
+font_size = 57
+font_color = Color(1, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rjqkl"]
 atlas = ExtResource("18_k73cj")
@@ -319,6 +324,54 @@ action_mode = 0
 text = "→"
 script = ExtResource("9_ir8iy")
 right = true
+
+[node name="GameOver" type="Control" parent="UI" unique_id=131110650]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_fs4d3")
+
+[node name="GOColor" type="ColorRect" parent="UI/GameOver" unique_id=1465135289]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -662.0
+offset_top = -366.0
+offset_right = 668.0
+offset_bottom = 395.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="GOLabel" type="Label" parent="UI/GameOver" unique_id=2041901327]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -185.5
+offset_top = -39.0
+offset_right = 185.5
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU'RE DEAD"
+label_settings = SubResource("LabelSettings_7vxoj")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SpawnSystem" type="Node2D" parent="." unique_id=502704677]
 position = Vector2(20, -453)

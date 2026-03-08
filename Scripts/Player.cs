@@ -51,6 +51,8 @@ public partial class Player : RigidBody2D
 	public int healthPoints;
 	[Export]
 	public int maxHealthPoints = 50;
+
+	public bool isDead = false;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -101,6 +103,8 @@ public partial class Player : RigidBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if(isDead)
+			return;
 		// calculate forward direction based on current rotation (local x-axis)
 		Vector2 forwardDir = new Vector2(0, 1).Rotated(Rotation);
 
@@ -135,8 +139,11 @@ public partial class Player : RigidBody2D
 			whistleCoolLeft += ((float)delta + (whistleCoolDown - whistleCoolLeft) * 0.04f) * 0.3f;
 		}
 
-		if(healthPoints <= 0)
+		if(healthPoints <= 0 && !isDead)
 		{
+			isDead = true; // :(
+			GameOver goScreen = GetNode("/root/Scene/UI/GameOver") as GameOver;
+			goScreen.IsPlayerDead = true;
 			GD.Print("imma dead baus T_T");
 		}
 	}
