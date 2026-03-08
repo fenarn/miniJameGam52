@@ -47,11 +47,13 @@ public partial class Player : RigidBody2D
 	bool monitoringDisableDelay = false;
 
 	[Export]
-	public int healthPoints = 50;
-
+	public int healthPoints;
+	[Export]
+	public int maxHealthPoints = 50;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		healthPoints = maxHealthPoints;
 	}
 
 	public override void _Input(InputEvent @event)
@@ -132,6 +134,10 @@ public partial class Player : RigidBody2D
 			whistleCoolLeft += ((float)delta + (whistleCoolDown - whistleCoolLeft) * 0.04f) * 0.3f;
 		}
 
+		if(healthPoints <= 0)
+		{
+			GD.Print("imma dead baus T_T");
+		}
 	}
 
 

@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://cw7vxd2mqmmd8" path="res://Scripts/WhistleBar.cs" id="8_x0ka3"]
 [ext_resource type="Theme" uid="uid://penjk8d570qj" path="res://Keys.tres" id="9_hqns4"]
 [ext_resource type="Script" uid="uid://dhusetss8b6os" path="res://Scripts/ButtonPressed.cs" id="9_ir8iy"]
+[ext_resource type="Script" uid="uid://c41fuwy1a0i8x" path="res://Scripts/HealthBar.cs" id="13_rjqkl"]
 [ext_resource type="Script" uid="uid://c3vw0qwubxm3r" path="res://Scripts/SpawnSystem.cs" id="15_ta5nu"]
 [ext_resource type="Script" uid="uid://5tba7vn0jp51" path="res://Scripts/SpawnPoint.cs" id="16_ta5nu"]
 [ext_resource type="Texture2D" uid="uid://gkkhwbms2g85" path="res://Materials/Zombski-cheer-sheet.png" id="18_k73cj"]
@@ -210,6 +211,15 @@ theme = ExtResource("7_ir8iy")
 max_value = 5.0
 show_percentage = false
 script = ExtResource("8_x0ka3")
+
+[node name="HealthBar" type="ProgressBar" parent="UI" unique_id=1387331726]
+layout_mode = 0
+offset_left = -616.0
+offset_top = -350.0
+offset_right = 620.0
+offset_bottom = -323.0
+fill_mode = 1
+script = ExtResource("13_rjqkl")
 
 [node name="Debug1" type="Label" parent="UI" unique_id=1041243291]
 layout_mode = 0

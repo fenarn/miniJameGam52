@@ -116,8 +116,14 @@ public partial class Zombie : RigidBody2D
 	{
 		if(attackEffective && body.Name == "PlayerCharacter")
 		{
+			Player playerLocal = body as Player;
 			//TODO: dealing actual damage to hp
-			GD.Print($"Would deal damage to {body.Name}");
+			if(playerLocal != null && playerLocal.healthPoints > 0)
+			{
+				playerLocal.healthPoints--;
+				GD.Print($"Dealt damage to {body.Name}");	
+			}
+			
 		}
 		
 	}
