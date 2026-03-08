@@ -36,7 +36,7 @@ zombieChargeMat = ExtResource("2_w0vy5")
 zombieLeapMat = ExtResource("2_uud0w")
 zombieFreezeMat = ExtResource("5_w0vy5")
 blood = NodePath("GPUParticles2D")
-attackDamage = 10
+attackDamage = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=26357535]
 shape = SubResource("CircleShape2D_0e48y")

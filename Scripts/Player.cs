@@ -217,16 +217,35 @@ public partial class Player : RigidBody2D
 	{
 		if(obj is Zombie zombie)
 		{
+
+			bool killZombie = false;
+
+
+			//Deal damage to player
 			if(zombie.attackState == AttackState.passive || zombie.attackState == AttackState.charging)
-				healthPoints -= 1;
-			else if (zombie.attackState == AttackState.frozen)
+				if(!nitrousBoost)
+				{
+					healthPoints -= 6;
+				}
+				else
+				{
+					killZombie = true;
+					zombie.FreezeZombie();
+				}
+
+			//Set zombie to be killed if they are frozen
+			if ((zombie.attackState == AttackState.frozen))
 			{
 				if((zombie.prevVelocity - LinearVelocity).Length() > zombieKillSpeed)
-				{
-					zombie.scheduleForDeathWaitRebirthIDontKnowEitherWayTheZombieGetsDestroyed = true;
+					killZombie = true;
+			}
+
+
+			//Kill the zombie if flags say to
+			if (killZombie)
+			{
+				zombie.scheduleForDeathWaitRebirthIDontKnowEitherWayTheZombieGetsDestroyed = true;
 					zombie.blood.Emitting = true;
-				}
-					
 			}
 				
 		}else if(obj.IsInGroup("Health"))
