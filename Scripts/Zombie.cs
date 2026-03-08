@@ -16,7 +16,8 @@ public partial class Zombie : RigidBody2D
 	public float damping = 3f;
 
 
-	[Export] public float frozenKillTimer = 3f;
+	[Export] public float frozenTime = 3f;
+	public float frozenTimer;
     
 	[Export]
 	private float leapDistance = 200f;
@@ -92,7 +93,7 @@ public partial class Zombie : RigidBody2D
 		AddChild(timerAttackEffective);
 
 		
-		
+		frozenTimer = frozenTime;
 
 		BodyEntered += OnBodyEntered;
 	}
@@ -124,11 +125,13 @@ public partial class Zombie : RigidBody2D
 		else if(attackState == AttackState.frozen)
 		{
 			//If the zombie is frozen start killing them
-			frozenKillTimer -= (float)delta;
+			frozenTimer -= (float)delta;
 
-			if(frozenKillTimer <= 0)
+			
+
+			if(frozenTimer <= 0)
 			{
-				QueueFree();
+				UnfreezeZombie();
 			}
 		}
 	}
@@ -138,7 +141,9 @@ public partial class Zombie : RigidBody2D
 	public void LeapAttackTest()
 	{
 		//Check for correct state
-		if(attackState != AttackState.passive) return;
+		if(attackState != AttackState.passive){
+			return;
+		} 
 
 
 		//Figure out if zombie is close to player
@@ -166,7 +171,9 @@ public partial class Zombie : RigidBody2D
 	public void LeapAttack()
 	{
 		//Check for correct state
-		if(attackState != AttackState.charging) return;
+		if(attackState != AttackState.charging){
+			return;
+		} 
 
 		ApplyImpulse(attackDir * leapForce);
 
@@ -178,8 +185,9 @@ public partial class Zombie : RigidBody2D
 
 	private void SetAttackIneffective()
 	{
-		//Don't do this if frozen
-		if(attackState == AttackState.frozen) return;
+		if(attackState == AttackState.frozen){
+			return;
+		} 
 
 		LockRotation = false;
 		GetNode<Sprite2D>("Sprite2D").Texture = zombieMat;
@@ -214,6 +222,15 @@ public partial class Zombie : RigidBody2D
 	{
 		attackState = AttackState.frozen;
 		GetNode<Sprite2D>("Sprite2D").Texture = zombieFreezeMat;
+	}
+
+	public void UnfreezeZombie()
+	{
+		frozenTimer = frozenTime; 
+		LockRotation = false;
+		GetNode<Sprite2D>("Sprite2D").Texture = zombieMat;
+		timerAttack.Start(CalcTimeTillNextAttack());
+		attackState = AttackState.passive;
 	}
 
 }
