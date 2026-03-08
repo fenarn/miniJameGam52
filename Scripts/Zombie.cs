@@ -21,7 +21,10 @@ public partial class Zombie : RigidBody2D
 	private float leapDistance = 200f;
 	[Export]
 	private float leapForce = 150f;
+	[Export]
+	private float leapAttackWait = 5f;
 
+	Timer timer;
 
 
 
@@ -32,8 +35,8 @@ public partial class Zombie : RigidBody2D
 		{
 			player = GetNode("/root/Scene/PlayerCharacter") as RigidBody2D;			
 		}
-		Timer timer = new Timer();
-		timer.WaitTime = 5f;
+		timer = new Timer();
+		timer.WaitTime = leapAttackWait + GD.RandRange(-0.5f,2f);
 		timer.Timeout += LeapAttack;
 		timer.Autostart = true;
 
@@ -81,7 +84,7 @@ public partial class Zombie : RigidBody2D
 		if(playerDistance <= leapDistance && !frozen)
 		{
 			ApplyImpulse(direction * leapForce);
-
+			timer.WaitTime = leapAttackWait + GD.RandRange(-0.5f,2f);
 			GD.Print("LEAP ATTACK!");
 		}
 	}
