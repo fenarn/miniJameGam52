@@ -218,7 +218,7 @@ offset_left = -616.0
 offset_top = -350.0
 offset_right = 620.0
 offset_bottom = -323.0
-fill_mode = 1
+step = 1.0
 script = ExtResource("13_rjqkl")
 
 [node name="Debug1" type="Label" parent="UI" unique_id=1041243291]
@@ -611,5 +611,6 @@ autoplay = "default"
 frame = 1
 
 [connection signal="BoostUI" from="PlayerCharacter" to="UI/BoostBar" method="UpdateBoost"]
+[connection signal="HealthUI" from="PlayerCharacter" to="UI/HealthBar" method="UpdateHealthBar"]
 [connection signal="Log" from="PlayerCharacter" to="UI/Debug1" method="OutputText"]
 [connection signal="UI" from="PlayerCharacter" to="UI" method="SetPos"]
