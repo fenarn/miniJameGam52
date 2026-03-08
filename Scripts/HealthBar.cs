@@ -16,4 +16,8 @@ public partial class HealthBar : ProgressBar
 	{
 	}
 	
+	public void UpdateHealthBar(int value)
+    {
+		Value = value;
+    }
 }

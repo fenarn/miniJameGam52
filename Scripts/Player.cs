@@ -10,6 +10,7 @@ public partial class Player : RigidBody2D
 	[Signal] public delegate void WhistleUIEventHandler(float whistleValue);
 	[Signal] public delegate void UIEventHandler(Vector2 pos);
 	[Signal] public delegate void LogEventHandler(string txt);
+	[Signal] public delegate void HealthUIEventHandler(float healthValue);
 
 
 	[Export] public float accelImpulseSpeed = 1;
@@ -196,5 +197,7 @@ public partial class Player : RigidBody2D
 		EmitSignal(SignalName.WhistleUI, whistleCoolLeft);
 
 		EmitSignal(SignalName.UI, GlobalPosition);
+
+		EmitSignal(SignalName.HealthUI, healthPoints);
 	}
 }

@@ -23,10 +23,19 @@ public partial class Zombie : RigidBody2D
 	private float leapForce = 150f;
 	[Export]
 	private float leapAttackWait = 5f;
+	[Export]
+	private Texture2D zombieMat;
+	[Export]
+	private Texture2D zombieChargeMat;
+	[Export]
+	private Texture2D zombieLeapMat;
+
+	[Export]
+	private float attackPrechargeTime = 0.5f;
 
 	private float attackEffectiveTime = 0.5f;
 
-	Timer timerAttack, timerAttackEffective;
+	Timer timerAttack, timerAttackEffective, timerAttackPreCharge;
 
 	bool attackEffective = true;
 
@@ -48,10 +57,16 @@ public partial class Zombie : RigidBody2D
 		timerAttackEffective.Timeout += SetAttackIneffective;
 		timerAttackEffective.WaitTime = attackEffectiveTime;
 		timerAttackEffective.Autostart = false;
-		timerAttackEffective.OneShot = true;
+		timerAttackEffective.OneShot = true; 
+
+		timerAttackPreCharge = new Timer();
+		timerAttackPreCharge.Timeout += PreLeapAttack;
+		timerAttackPreCharge.WaitTime = timerAttack.WaitTime - attackPrechargeTime;
+		timerAttack.Autostart = true;
 		
 		AddChild(timerAttack); 
 		AddChild(timerAttackEffective);
+		AddChild(timerAttackPreCharge);
 
 		BodyEntered += OnBodyEntered;
 	}
@@ -69,6 +84,8 @@ public partial class Zombie : RigidBody2D
 
 			//This little commented snippet below is gonne be left here as a testament to mine (Fenarn's) humongous stupidity.
 			//float angleRotated = Mathf.Wrap(angle + Mathf.Pi / 2f, -Mathf.Pi, Mathf.Pi);
+
+			//F   -aljowen
 			
 			ApplyTorqueImpulse(angle*torqueStrength - AngularVelocity * damping);
 			ApplyForce(direction * thrust);
@@ -87,6 +104,14 @@ public partial class Zombie : RigidBody2D
 		}
 	}
 
+
+
+	public void PreLeapAttack()
+	{
+		GetNode<Sprite2D>("Sprite2D").Texture = zombieChargeMat;
+	}
+
+
 	public void LeapAttack()
 	{
 		Vector2 target = player.GlobalPosition - GlobalPosition;
@@ -100,15 +125,18 @@ public partial class Zombie : RigidBody2D
 		{
 			ApplyImpulse(direction * leapForce);
 			timerAttack.WaitTime = leapAttackWait + GD.RandRange(-0.5f,2f);
+			timerAttackPreCharge.WaitTime = timerAttack.WaitTime - attackPrechargeTime;
 			//GD.Print("LEAP ATTACK! " + timerAttack.WaitTime);
 			attackEffective = true;
 			timerAttackEffective.Start();
+			GetNode<Sprite2D>("Sprite2D").Texture = zombieLeapMat;
 		}
 	}
 
 	private void SetAttackIneffective()
 	{
 		attackEffective = false;
+		GetNode<Sprite2D>("Sprite2D").Texture = zombieMat;
 		//GD.Print("Won't damage anymore");
 	}
 

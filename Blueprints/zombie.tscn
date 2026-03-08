@@ -2,11 +2,14 @@
 
 [ext_resource type="Script" uid="uid://b1du26558q5gu" path="res://Scripts/Zombie.cs" id="1_p1neq"]
 [ext_resource type="Texture2D" uid="uid://bxltwqxs2gu8v" path="res://Materials/Zombski.png" id="2_6evcj"]
+[ext_resource type="Texture2D" uid="uid://dqboc5tby2ug" path="res://Materials/ZombskiLeap.png" id="2_uud0w"]
+[ext_resource type="Texture2D" uid="uid://ohgf666c0b8f" path="res://Materials/ZombskiCharge.png" id="2_w0vy5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0e48y"]
 radius = 16.17
 
 [node name="Zombie" type="RigidBody2D" unique_id=1425535894]
+texture_filter = 1
 mass = 0.5
 gravity_scale = 0.0
 contact_monitor = true
@@ -15,6 +18,8 @@ angular_damp = -1.0
 script = ExtResource("1_p1neq")
 torqueStrength = 2.0
 damping = 2.5
+zombieChargeMat = ExtResource("2_w0vy5")
+zombieLeapMat = ExtResource("2_uud0w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=26357535]
 shape = SubResource("CircleShape2D_0e48y")
