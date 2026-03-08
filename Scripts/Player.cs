@@ -6,6 +6,8 @@ using System;
 public partial class Player : RigidBody2D
 {
 
+
+
 	[Signal] public delegate void BoostUIEventHandler(float boostValue);
 	[Signal] public delegate void WhistleUIEventHandler(float whistleValue);
 	[Signal] public delegate void UIEventHandler(Vector2 pos);
@@ -58,6 +60,10 @@ public partial class Player : RigidBody2D
 
 	Timer timer;
 
+
+	[Export] AudioStreamWav[] honkhonks;
+	[Export] AudioStreamPlayer2D honker;
+
 	public bool isDead = false;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -103,6 +109,12 @@ public partial class Player : RigidBody2D
 					zombie.FreezeZombie();
 				}
 			}
+
+
+			//Makes the train whistle play
+			int honkSoundSelection = GD.RandRange(0, honkhonks.Length - 1);
+			honker.Stream = honkhonks[honkSoundSelection];
+			honker.Play();
 			
 		}
 	}
