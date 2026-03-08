@@ -44,6 +44,13 @@ public partial class Zombie : RigidBody2D
 	Vector2 attackDir;
 
 	public AttackState attackState;
+	public bool scheduleForDeathWaitRebirthIDontKnowEitherWayTheZombieGetsDestroyed = false;
+	public Vector2 prevVelocity;
+	[Export] float zombieKillSpeed = 20f;
+
+
+
+	[Export] public GpuParticles2D blood;
 
 
 
@@ -119,7 +126,7 @@ public partial class Zombie : RigidBody2D
 			ApplyTorqueImpulse(angle*torqueStrength - AngularVelocity * damping);
 			ApplyForce(direction * thrust);
 			
-			
+			prevVelocity = LinearVelocity;
 			
 		}
 		else if(attackState == AttackState.frozen)
@@ -131,7 +138,15 @@ public partial class Zombie : RigidBody2D
 
 			if(frozenTimer <= 0)
 			{
-				UnfreezeZombie();
+				if (scheduleForDeathWaitRebirthIDontKnowEitherWayTheZombieGetsDestroyed)
+				{
+					QueueFree();
+				}
+				else
+				{
+					UnfreezeZombie();
+				}
+				
 			}
 		}
 	}
@@ -210,10 +225,24 @@ public partial class Zombie : RigidBody2D
 		}
 
 		if(attackState == AttackState.frozen)
-		if(body is Zombie otherZombie)
 		{
-			otherZombie.FreezeZombie();
+			if(body is Zombie otherZombie)
+			{
+				if((otherZombie.prevVelocity - prevVelocity).Length() > zombieKillSpeed)
+				{
+					scheduleForDeathWaitRebirthIDontKnowEitherWayTheZombieGetsDestroyed = true;
+					otherZombie.scheduleForDeathWaitRebirthIDontKnowEitherWayTheZombieGetsDestroyed = true;
+					blood.Emitting = true;
+					otherZombie.blood.Emitting = true;
+				}
+					
+
+				otherZombie.FreezeZombie();
+			}
+
+
 		}
+		
 		
 	}
 

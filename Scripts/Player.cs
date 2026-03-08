@@ -46,6 +46,8 @@ public partial class Player : RigidBody2D
 	float whistleCoolLeft = 0;
 	bool monitoringDisableDelay = false;
 
+	[Export] float zombieKillSpeed = 50f;
+
 	[Export]
 	public int healthPoints;
 	[Export]
@@ -217,6 +219,16 @@ public partial class Player : RigidBody2D
 		{
 			if(zombie.attackState == AttackState.passive || zombie.attackState == AttackState.charging)
 				healthPoints -= 1;
+			else if (zombie.attackState == AttackState.frozen)
+			{
+				if((zombie.prevVelocity - LinearVelocity).Length() > zombieKillSpeed)
+				{
+					zombie.scheduleForDeathWaitRebirthIDontKnowEitherWayTheZombieGetsDestroyed = true;
+					zombie.blood.Emitting = true;
+				}
+					
+			}
+				
 		}else if(obj.IsInGroup("Health"))
 		{
 			healthPoints += 10;
