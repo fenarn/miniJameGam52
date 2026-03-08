@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://kf7kaqhi20bj"]
 
-[ext_resource type="Texture2D" uid="uid://bqcma58wycrjq" path="res://Materials/IceRink.png" id="1_rj586"]
+[ext_resource type="Texture2D" uid="uid://k45fj25uptn6" path="res://Materials/IceRink.png" id="1_rj586"]
 [ext_resource type="Script" uid="uid://cr5mab3n1ikov" path="res://Scripts/Player.cs" id="2_0e48y"]
 [ext_resource type="Texture2D" uid="uid://bv66vnji2y3is" path="res://Materials/ZombskiDead.png" id="3_nr8wp"]
 [ext_resource type="Texture2D" uid="uid://cnt68ec2brn8c" path="res://Materials/AreaCircle.png" id="4_0h7mo"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://dhusetss8b6os" path="res://Scripts/ButtonPressed.cs" id="9_ir8iy"]
 [ext_resource type="Script" uid="uid://c3vw0qwubxm3r" path="res://Scripts/SpawnSystem.cs" id="15_ta5nu"]
 [ext_resource type="Script" uid="uid://5tba7vn0jp51" path="res://Scripts/SpawnPoint.cs" id="16_ta5nu"]
+[ext_resource type="Texture2D" uid="uid://gkkhwbms2g85" path="res://Materials/Zombski-cheer-sheet.png" id="18_k73cj"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rj586"]
 normal = Vector2(1, 0)
@@ -60,6 +61,35 @@ initial_velocity_min = 120.689995
 initial_velocity_max = 206.94
 gravity = Vector3(0, 0, 0)
 scale_min = 0.5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjqkl"]
+atlas = ExtResource("18_k73cj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fs4d3"]
+atlas = ExtResource("18_k73cj")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vxoj"]
+atlas = ExtResource("18_k73cj")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ei405"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjqkl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fs4d3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vxoj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Scene" type="Node2D" unique_id=258582573]
 
@@ -144,6 +174,7 @@ texture = ExtResource("7_ta5nu")
 process_material = SubResource("ParticleProcessMaterial_flf07")
 
 [node name="UI" type="Control" parent="." unique_id=1757938355]
+z_index = 99
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -309,6 +340,263 @@ minSpawnDistance = 150.0
 position = Vector2(-615, 113)
 script = ExtResource("16_ta5nu")
 minSpawnDistance = 150.0
+
+[node name="Crowd" type="Node2D" parent="." unique_id=1830394052]
+position = Vector2(-599, -574)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Crowd" unique_id=2083720823]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame_progress = 0.00068218843
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Crowd" unique_id=1970462867]
+texture_filter = 1
+position = Vector2(71, -51)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 2
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="Crowd" unique_id=1530514272]
+texture_filter = 1
+position = Vector2(106, 20)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 1
+frame_progress = 0.47746158
+
+[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="Crowd" unique_id=2038233922]
+texture_filter = 1
+position = Vector2(141, 20)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+
+[node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="Crowd" unique_id=584518395]
+texture_filter = 1
+position = Vector2(216, -95)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 1
+frame_progress = 0.47746158
+
+[node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="Crowd" unique_id=2113679326]
+texture_filter = 1
+position = Vector2(107, -143)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+
+[node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="Crowd" unique_id=655779161]
+texture_filter = 1
+position = Vector2(325, -145)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 1
+frame_progress = 0.47746158
+
+[node name="AnimatedSprite2D8" type="AnimatedSprite2D" parent="Crowd" unique_id=596279120]
+texture_filter = 1
+position = Vector2(323, -51)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 1
+
+[node name="AnimatedSprite2D9" type="AnimatedSprite2D" parent="Crowd" unique_id=760320934]
+texture_filter = 1
+position = Vector2(359, -52)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 2
+
+[node name="AnimatedSprite2D10" type="AnimatedSprite2D" parent="Crowd" unique_id=2060265934]
+texture_filter = 1
+position = Vector2(837, -51)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 2
+
+[node name="AnimatedSprite2D11" type="AnimatedSprite2D" parent="Crowd" unique_id=476760110]
+texture_filter = 1
+position = Vector2(873, -98)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 1
+
+[node name="AnimatedSprite2D12" type="AnimatedSprite2D" parent="Crowd" unique_id=643976084]
+texture_filter = 1
+position = Vector2(908, -6)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+
+[node name="AnimatedSprite2D13" type="AnimatedSprite2D" parent="Crowd" unique_id=300143910]
+texture_filter = 1
+position = Vector2(909, -52)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 2
+
+[node name="AnimatedSprite2D14" type="AnimatedSprite2D" parent="Crowd" unique_id=36458014]
+texture_filter = 1
+position = Vector2(1017, -98)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 2
+
+[node name="AnimatedSprite2D15" type="AnimatedSprite2D" parent="Crowd" unique_id=1739849755]
+texture_filter = 1
+position = Vector2(1089, -54)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+
+[node name="AnimatedSprite2D16" type="AnimatedSprite2D" parent="Crowd" unique_id=1446585953]
+texture_filter = 1
+position = Vector2(1198, -143)
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 1
+
+[node name="AnimatedSprite2D17" type="AnimatedSprite2D" parent="Crowd" unique_id=836403396]
+texture_filter = 1
+position = Vector2(815, 1122)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 1
+
+[node name="AnimatedSprite2D18" type="AnimatedSprite2D" parent="Crowd" unique_id=1531505646]
+texture_filter = 1
+position = Vector2(924, 1173)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 1
+
+[node name="AnimatedSprite2D19" type="AnimatedSprite2D" parent="Crowd" unique_id=991167759]
+texture_filter = 1
+position = Vector2(959, 1172)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+
+[node name="AnimatedSprite2D20" type="AnimatedSprite2D" parent="Crowd" unique_id=1005586638]
+texture_filter = 1
+position = Vector2(996, 1173)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 2
+
+[node name="AnimatedSprite2D21" type="AnimatedSprite2D" parent="Crowd" unique_id=1047698801]
+texture_filter = 1
+position = Vector2(1032, 1173)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+
+[node name="AnimatedSprite2D22" type="AnimatedSprite2D" parent="Crowd" unique_id=807741284]
+texture_filter = 1
+position = Vector2(1013, 1107)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+
+[node name="AnimatedSprite2D23" type="AnimatedSprite2D" parent="Crowd" unique_id=750286059]
+texture_filter = 1
+position = Vector2(852, 1261)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 2
+
+[node name="AnimatedSprite2D24" type="AnimatedSprite2D" parent="Crowd" unique_id=2077978780]
+texture_filter = 1
+position = Vector2(960, 1216)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 2
+
+[node name="AnimatedSprite2D25" type="AnimatedSprite2D" parent="Crowd" unique_id=883916121]
+texture_filter = 1
+position = Vector2(997, 1216)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 1
+
+[node name="AnimatedSprite2D26" type="AnimatedSprite2D" parent="Crowd" unique_id=1597183639]
+texture_filter = 1
+position = Vector2(1176, 1217)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+
+[node name="AnimatedSprite2D27" type="AnimatedSprite2D" parent="Crowd" unique_id=468536472]
+texture_filter = 1
+position = Vector2(1216, 1218)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 1
+
+[node name="AnimatedSprite2D28" type="AnimatedSprite2D" parent="Crowd" unique_id=920748435]
+texture_filter = 1
+position = Vector2(147, 1262)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+
+[node name="AnimatedSprite2D29" type="AnimatedSprite2D" parent="Crowd" unique_id=307360867]
+texture_filter = 1
+position = Vector2(183, 1263)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 2
+
+[node name="AnimatedSprite2D35" type="AnimatedSprite2D" parent="Crowd" unique_id=1228586989]
+texture_filter = 1
+position = Vector2(112, 1243)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 1
+
+[node name="AnimatedSprite2D30" type="AnimatedSprite2D" parent="Crowd" unique_id=928114155]
+texture_filter = 1
+position = Vector2(290, 1217)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+
+[node name="AnimatedSprite2D31" type="AnimatedSprite2D" parent="Crowd" unique_id=1250713304]
+texture_filter = 1
+position = Vector2(41, 1171)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+
+[node name="AnimatedSprite2D32" type="AnimatedSprite2D" parent="Crowd" unique_id=2050181026]
+texture_filter = 1
+position = Vector2(113, 1100)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 2
+
+[node name="AnimatedSprite2D33" type="AnimatedSprite2D" parent="Crowd" unique_id=513748760]
+texture_filter = 1
+position = Vector2(193, 1100)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+
+[node name="AnimatedSprite2D34" type="AnimatedSprite2D" parent="Crowd" unique_id=842420353]
+texture_filter = 1
+position = Vector2(4, 1171)
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_ei405")
+autoplay = "default"
+frame = 1
 
 [connection signal="BoostUI" from="PlayerCharacter" to="UI/BoostBar" method="UpdateBoost"]
 [connection signal="Log" from="PlayerCharacter" to="UI/Debug1" method="OutputText"]
