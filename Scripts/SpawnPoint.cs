@@ -1,12 +1,13 @@
 using Godot;
 using System;
 using System.Threading.Tasks;
+using Godot.Collections;
 
 public partial class SpawnPoint : Node2D
 {
-	public PackedScene zombiePrefab; 
-	private Player player;
-	public float spawnCooldownTimeSeconds = 5;
+    private PackedScene zombiePrefab;
+    private Player player;
+	public float spawnCooldownTimeSeconds;// = 5;
 	Timer timer;
 
 	Zombie	instantiatedZombie;
@@ -15,10 +16,13 @@ public partial class SpawnPoint : Node2D
 	public bool canSpawn = true;
 	private SpawnSystem spawnSystem;
 
+    public PackedScene ZombiePrefab { get => zombiePrefab; set => zombiePrefab = value; }
+
     // Called when the node enters the scene tree for the first time.
+
     public override void _Ready()
 	{
-		zombiePrefab = GD.Load<PackedScene>("res://Blueprints/zombie.tscn");
+		//ZombiePrefab = GD.Load<PackedScene>("res://Blueprints/zombie.tscn");
 		player = GetNode("/root/Scene/PlayerCharacter") as Player;	
 		spawnSystem = GetParent() as SpawnSystem;
 
@@ -42,9 +46,10 @@ public partial class SpawnPoint : Node2D
 		canSpawn = distanceToPlayer >= minSpawnDistance;
 		if(canSpawn)
 		{
-			instantiatedZombie = zombiePrefab.Instantiate() as Zombie;
+			instantiatedZombie = ZombiePrefab.Instantiate() as Zombie;
 			instantiatedZombie.GlobalPosition = GlobalPosition;
-			GetTree().CurrentScene.AddChild(instantiatedZombie);	
+			GetTree().CurrentScene.AddChild(instantiatedZombie);
+			GD.Print(instantiatedZombie.Name);	
 		}
 	}
 }

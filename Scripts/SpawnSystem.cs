@@ -5,6 +5,8 @@ using System;
 public partial class SpawnSystem : Node2D
 {
 	[Export]
+	public Array<PackedScene> zombiePrefabs;
+	[Export]
 	public float globalSpawnCooldownSeconds = 5f;
 	private float currentSpawnCooldownSeconds;
 	Array<Node> spawnPoints;
@@ -24,6 +26,7 @@ public partial class SpawnSystem : Node2D
 		foreach (Node spawnPoint in spawnPoints)
 		{
 			SpawnPoint sPoint = spawnPoint as SpawnPoint;
+			sPoint.ZombiePrefab = zombiePrefabs[GD.RandRange(0,zombiePrefabs.Count - 1)];
 			if(sPoint.canSpawn)
 			{
 				howManyCanSpawn++;

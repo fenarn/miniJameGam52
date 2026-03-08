@@ -7,9 +7,10 @@ public enum AttackState{passive, charging, attacking, frozen};
 public partial class Zombie : RigidBody2D
 {
 	[Export]
-	//RigidBody2D player;
 	Player player;
-	[Export]
+    [Export]
+    private float spawnCooldownTimeSeconds = 5f;
+    [Export]
 	public float thrust = 10f;
 	[Export]
 	public float torqueStrength = 1f;
@@ -60,10 +61,9 @@ public partial class Zombie : RigidBody2D
 	[Export]
 	public int attackDamage = 5;
 
+    public float SpawnCooldownTimeSeconds { get => spawnCooldownTimeSeconds; set => spawnCooldownTimeSeconds = value; }
 
-
-
-	float CalcTimeTillNextAttack()
+    float CalcTimeTillNextAttack()
 	{
 		return (float)leapAttackWait + (float)GD.RandRange(-0.5f,2f);
 	}

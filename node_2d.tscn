@@ -2,21 +2,16 @@
 
 [ext_resource type="Texture2D" uid="uid://k45fj25uptn6" path="res://Materials/IceRink.png" id="1_rj586"]
 [ext_resource type="Script" uid="uid://cr5mab3n1ikov" path="res://Scripts/Player.cs" id="2_0e48y"]
-[ext_resource type="AudioStream" uid="uid://61womsg7rw8w" path="res://Sounds/Honk1.wav" id="3_2hxjc"]
+[ext_resource type="Texture2D" uid="uid://bv66vnji2y3is" path="res://Materials/ZombskiDead.png" id="3_nr8wp"]
 [ext_resource type="Texture2D" uid="uid://cnt68ec2brn8c" path="res://Materials/AreaCircle.png" id="4_0h7mo"]
 [ext_resource type="Script" uid="uid://dcawsj87ejxbc" path="res://Scripts/BoostBar.cs" id="4_0hol4"]
 [ext_resource type="Texture2D" uid="uid://hpwfq4nnadkt" path="res://Materials/Train.png" id="4_d2bti"]
 [ext_resource type="Script" uid="uid://bqm5rmcclcpi1" path="res://Scripts/UI_pos.cs" id="4_d21ai"]
-[ext_resource type="AudioStream" uid="uid://ck1g4j0qnrkm3" path="res://Sounds/Honk2.wav" id="4_ebxd8"]
-[ext_resource type="AudioStream" uid="uid://pj31xd01e0i4" path="res://Sounds/Honk3.wav" id="5_2u7jv"]
 [ext_resource type="Theme" uid="uid://bkv6vr1u44luv" path="res://BoostTheme.tres" id="5_4d7sh"]
 [ext_resource type="Script" uid="uid://dl07kh1uqcya2" path="res://Scripts/DebugOut.cs" id="5_q6r6c"]
-[ext_resource type="AudioStream" uid="uid://baqgqfh028rqy" path="res://Sounds/Honk4.wav" id="6_24dk6"]
 [ext_resource type="Texture2D" uid="uid://bkofnia6is8hb" path="res://Materials/Steam.png" id="6_d2bti"]
 [ext_resource type="Theme" uid="uid://gflk662ddj5g" path="res://WhistleTheme.tres" id="7_ir8iy"]
-[ext_resource type="AudioStream" uid="uid://syf4f1v66ym2" path="res://Sounds/Honk5.wav" id="7_mryly"]
 [ext_resource type="Texture2D" uid="uid://bofb5l3clm3qg" path="res://Materials/Flame.png" id="7_ta5nu"]
-[ext_resource type="AudioStream" uid="uid://drveiihftyd6w" path="res://Sounds/Honk6.wav" id="8_kq1c5"]
 [ext_resource type="Script" uid="uid://cw7vxd2mqmmd8" path="res://Scripts/WhistleBar.cs" id="8_x0ka3"]
 [ext_resource type="Theme" uid="uid://penjk8d570qj" path="res://Keys.tres" id="9_hqns4"]
 [ext_resource type="Script" uid="uid://dhusetss8b6os" path="res://Scripts/ButtonPressed.cs" id="9_ir8iy"]
@@ -26,8 +21,15 @@
 [ext_resource type="Script" uid="uid://5tba7vn0jp51" path="res://Scripts/SpawnPoint.cs" id="16_ta5nu"]
 [ext_resource type="Script" uid="uid://cbf2ses2e0u7n" path="res://Scripts/GameOver.cs" id="17_fs4d3"]
 [ext_resource type="Texture2D" uid="uid://gkkhwbms2g85" path="res://Materials/Zombski-cheer-sheet.png" id="18_k73cj"]
+[ext_resource type="PackedScene" uid="uid://i4wkfc1pu1si" path="res://Blueprints/zombie.tscn" id="19_2nhjh"]
 [ext_resource type="Script" uid="uid://ct3tmegdih383" path="res://HealthSpawn.cs" id="20_fs4d3"]
+[ext_resource type="Script" uid="uid://b1du26558q5gu" path="res://Scripts/Zombie.cs" id="21_2u7jv"]
 [ext_resource type="PackedScene" uid="uid://da4nyqynv6fis" path="res://Blueprints/health_box.tscn" id="21_7vxoj"]
+[ext_resource type="Texture2D" uid="uid://bxltwqxs2gu8v" path="res://Materials/Zombski.png" id="22_24dk6"]
+[ext_resource type="Texture2D" uid="uid://ohgf666c0b8f" path="res://Materials/ZombskiCharge.png" id="23_mryly"]
+[ext_resource type="Texture2D" uid="uid://dqboc5tby2ug" path="res://Materials/ZombskiLeap.png" id="24_kq1c5"]
+[ext_resource type="Texture2D" uid="uid://dh3qy4w1mqfy7" path="res://Materials/ZombieFrozen.png" id="25_ornx7"]
+[ext_resource type="AudioStream" uid="uid://ffy6lttdavbc" path="res://Sounds/Zomb1.wav" id="27_cnnru"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rj586"]
 normal = Vector2(1, 0)
@@ -81,6 +83,34 @@ font_size = 25
 
 [sub_resource type="LabelSettings" id="LabelSettings_e8dv2"]
 font_size = 25
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0e48y"]
+radius = 16.17
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w0vy5"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_max = 47.32
+gravity = Vector3(0, 0, 0)
+scale_max = 5.0
+scale_over_velocity_min = 22.25
+scale_over_velocity_max = 903.12
+color = Color(0.5833334, 1, 0, 1)
+
+[sub_resource type="PackedScene" id="PackedScene_540hr"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"id_paths": [],
+"names": PackedStringArray("Zombie", "texture_filter", "mass", "gravity_scale", "contact_monitor", "max_contacts_reported", "linear_damp", "script", "thrust", "torqueStrength", "damping", "leapDistance", "zombieMat", "zombieChargeMat", "zombieLeapMat", "zombieFreezeMat", "blood", "attackSound", "attackDamage", "RigidBody2D", "CollisionShape2D", "shape", "Sprite2D", "texture", "GPUParticles2D", "emitting", "amount", "process_material", "AudioStreamPlayer2D", "stream", "max_distance", "attenuation", "panning_strength"),
+"node_count": 5,
+"node_ids": PackedInt32Array(1425535894, 26357535, 1856474727, 696289986, 1009729850),
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 19, 0, -1, 18, 1, 0, 2, 1, 3, 2, 4, 3, 5, 4, 6, 5, 7, 6, 8, 7, 9, 8, 10, 5, 11, 9, 12, 10, 13, 11, 14, 12, 15, 13, 1073741840, 14, 1073741841, 15, 18, 16, 0, 0, 0, 20, 20, -1, 1, 21, 17, 0, 0, 0, 22, 22, -1, 1, 23, 18, 0, 0, 0, 24, 24, -1, 3, 25, 19, 26, 20, 27, 21, 0, 0, 0, 28, 28, -1, 4, 29, 22, 30, 9, 31, 23, 32, 24, 0),
+"variants": [1, 0.5, 0.0, true, 5, 1.0, ExtResource("21_2u7jv"), 25.0, 2.0, 300.0, ExtResource("22_24dk6"), ExtResource("23_mryly"), ExtResource("24_kq1c5"), ExtResource("25_ornx7"), NodePath("GPUParticles2D"), NodePath("AudioStreamPlayer2D"), 15, SubResource("CircleShape2D_0e48y"), ExtResource("3_nr8wp"), false, 50, SubResource("ParticleProcessMaterial_w0vy5"), ExtResource("27_cnnru"), 2.639016, 3.0],
+"version": 3
+}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rjqkl"]
 atlas = ExtResource("18_k73cj")
@@ -136,7 +166,7 @@ shape = SubResource("WorldBoundaryShape2D_ir8iy")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Background/StaticBody2D" unique_id=452572006]
 shape = SubResource("WorldBoundaryShape2D_hqns4")
 
-[node name="PlayerCharacter" type="RigidBody2D" parent="." unique_id=1644462876 node_paths=PackedStringArray("flames", "whistleColArea", "honker")]
+[node name="PlayerCharacter" type="RigidBody2D" parent="." unique_id=1644462876 node_paths=PackedStringArray("flames", "whistleColArea")]
 position = Vector2(-1, -4)
 collision_layer = 3
 mass = 1000.0
@@ -158,8 +188,6 @@ driftMultiplier = 0.003
 flames = NodePath("GPUParticles2DFlames")
 whistleColArea = NodePath("Area2D")
 whistleRadiusMod = 0.2
-honkhonks = Array[AudioStreamWAV]([ExtResource("3_2hxjc"), ExtResource("4_ebxd8"), ExtResource("5_2u7jv"), ExtResource("6_24dk6"), ExtResource("7_mryly"), ExtResource("8_kq1c5")])
-honker = NodePath("AudioStreamPlayer2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacter" unique_id=1394125225]
 position = Vector2(0, 11)
@@ -433,6 +461,7 @@ vertical_alignment = 1
 
 [node name="SpawnSystem" type="Node2D" parent="." unique_id=502704677]
 script = ExtResource("15_ta5nu")
+zombiePrefabs = Array[PackedScene]([ExtResource("19_2nhjh")])
 
 [node name="SpawnPoint" type="Node2D" parent="SpawnSystem" unique_id=1087031398]
 position = Vector2(0, -425)
@@ -461,6 +490,41 @@ minSpawnDistance = 150.0
 
 [node name="SpawnPoint6" type="Node2D" parent="SpawnSystem" unique_id=236786220]
 position = Vector2(-889, -305)
+script = ExtResource("16_ta5nu")
+minSpawnDistance = 150.0
+
+[node name="SpawnSystem2" type="Node2D" parent="." unique_id=458664101]
+script = ExtResource("15_ta5nu")
+zombiePrefabs = Array[PackedScene]([SubResource("PackedScene_540hr")])
+globalSpawnCooldownSeconds = 15.0
+
+[node name="SpawnPoint" type="Node2D" parent="SpawnSystem2" unique_id=944385224]
+position = Vector2(430, -387)
+script = ExtResource("16_ta5nu")
+minSpawnDistance = 150.0
+
+[node name="SpawnPoint2" type="Node2D" parent="SpawnSystem2" unique_id=61104163]
+position = Vector2(901, -13)
+script = ExtResource("16_ta5nu")
+minSpawnDistance = 150.0
+
+[node name="SpawnPoint3" type="Node2D" parent="SpawnSystem2" unique_id=1416656633]
+position = Vector2(418, 346)
+script = ExtResource("16_ta5nu")
+minSpawnDistance = 150.0
+
+[node name="SpawnPoint4" type="Node2D" parent="SpawnSystem2" unique_id=1845482306]
+position = Vector2(-467, 360)
+script = ExtResource("16_ta5nu")
+minSpawnDistance = 150.0
+
+[node name="SpawnPoint5" type="Node2D" parent="SpawnSystem2" unique_id=497271148]
+position = Vector2(-927, -8)
+script = ExtResource("16_ta5nu")
+minSpawnDistance = 150.0
+
+[node name="SpawnPoint6" type="Node2D" parent="SpawnSystem2" unique_id=1205642867]
+position = Vector2(-456, -418)
 script = ExtResource("16_ta5nu")
 minSpawnDistance = 150.0
 
