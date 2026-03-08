@@ -18,6 +18,7 @@ angular_damp = -1.0
 script = ExtResource("1_p1neq")
 torqueStrength = 2.0
 damping = 2.5
+zombieMat = ExtResource("2_6evcj")
 zombieChargeMat = ExtResource("2_w0vy5")
 zombieLeapMat = ExtResource("2_uud0w")
 
