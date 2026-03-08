@@ -617,3 +617,4 @@ frame = 1
 [connection signal="HealthUI" from="PlayerCharacter" to="UI/HealthBar" method="UpdateHealthBar"]
 [connection signal="Log" from="PlayerCharacter" to="UI/Debug1" method="OutputText"]
 [connection signal="UI" from="PlayerCharacter" to="UI" method="SetPos"]
+[connection signal="body_entered" from="PlayerCharacter" to="PlayerCharacter" method="ZombieCollisionDamage"]
